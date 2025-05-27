@@ -2,9 +2,10 @@ package com.example.weatherapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.weatherapp.adapter.HourlyForecastRvAdapter
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.weatherapp.databinding.ActivityMainBinding
-import com.example.weatherapp.model.hourlyForecast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -14,15 +15,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val currentWeatherFragment = CurrentWeatherFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_container, currentWeatherFragment)
-            .commit()
+        val toolbar:Toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
 
 
+        val navController = findNavController(R.id.nav_host_fragment)
+        setupActionBarWithNavController(navController)
 
+    }
 
-
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp() || super.onSupportNavigateUp()
 
 
     }
@@ -32,3 +36,6 @@ class MainActivity : AppCompatActivity() {
 
 
 }
+
+
+

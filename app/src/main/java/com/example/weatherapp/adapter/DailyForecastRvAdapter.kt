@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.DailyItemBinding
-import com.example.weatherapp.model.dailyForecast
+import com.example.weatherapp.model.dailyForecastData
 
-class DailyForecastRvAdapter (private val list: List<dailyForecast>): RecyclerView.Adapter<DailyForecastRvAdapter.ViewHolder>(){
+class DailyForecastRvAdapter (private val list: List<dailyForecastData>): RecyclerView.Adapter<DailyForecastRvAdapter.ViewHolder>(){
 
     inner class ViewHolder(private val binding: DailyItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun onBind(item: dailyForecast){
+        fun onBind(item: dailyForecastData){
             binding.forecastDay.text = item.date
             binding.dayWeatherIcon.setImageResource(getIconForWeather(item.picPath))
             binding.dayWeatherTemp.text = "${item.temp}°"

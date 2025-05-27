@@ -1,6 +1,6 @@
 package com.example.weatherapp.model
 
-data class dailyForecast(
+data class dailyForecastData(
     val date: String,
     val temp: Int,
     val picPath: String,

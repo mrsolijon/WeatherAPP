@@ -5,16 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.HourlyItemBinding
-import com.example.weatherapp.model.hourlyForecast
+import com.example.weatherapp.model.hourlyForecastData
 
-class HourlyForecastRvAdapter (private val list: List<hourlyForecast>): RecyclerView.Adapter<HourlyForecastRvAdapter.ViewHolder>(){
+class HourlyForecastRvAdapter (private val list: List<hourlyForecastData>): RecyclerView.Adapter<HourlyForecastRvAdapter.ViewHolder>(){
 
     inner class ViewHolder(private val binding: HourlyItemBinding) : RecyclerView.ViewHolder(binding.root){
-        fun onBind(item: hourlyForecast){
+
+        fun onBind(item: hourlyForecastData){
             binding.forecastHour.text = item.time
             binding.hourWeatherIcon.setImageResource(getIconForWeather(item.picPath))
             binding.hourWeatherTemp.text = "${item.temp}°"
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
