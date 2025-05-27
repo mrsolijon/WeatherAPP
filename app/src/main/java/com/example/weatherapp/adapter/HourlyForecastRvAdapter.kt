@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.HourlyItemBinding
-import com.example.weatherapp.model.hourlyForecastData
+import com.example.weatherapp.model.HourlyForecastData
 
-class HourlyForecastRvAdapter (private val list: List<hourlyForecastData>): RecyclerView.Adapter<HourlyForecastRvAdapter.ViewHolder>(){
+class HourlyForecastRvAdapter (private val list: List<HourlyForecastData>): RecyclerView.Adapter<HourlyForecastRvAdapter.ViewHolder>(){
 
     inner class ViewHolder(private val binding: HourlyItemBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun onBind(item: hourlyForecastData){
-            binding.forecastHour.text = item.time
-            binding.hourWeatherIcon.setImageResource(getIconForWeather(item.picPath))
+        fun onBind(item: HourlyForecastData){
+            binding.forecastHour.text = java.text.SimpleDateFormat("HH:MM").format(java.util.Date(item.dt * 1000))
+            binding.hourWeatherIcon.setImageResource(getIconForWeather(item.weather[0].icon))
             binding.hourWeatherTemp.text = "${item.temp}°"
         }
 
@@ -34,9 +34,10 @@ class HourlyForecastRvAdapter (private val list: List<hourlyForecastData>): Recy
 
     fun getIconForWeather(condition: String): Int {
         return when (condition.lowercase()) {
-            "clear", "sunny" -> R.drawable.sun
-            "cloudy" -> R.drawable.cloudy
-            "rain" -> R.drawable.rainy
+            "01d", "01n" -> R.drawable.sun
+            "02d", "02n" -> R.drawable.cloudy
+            "03d", "03n", "04d", "04n" -> R.drawable.cloudy
+            "09d", "09n", "10d", "10n" -> R.drawable.rainy
             else -> R.drawable.sun
         }
 

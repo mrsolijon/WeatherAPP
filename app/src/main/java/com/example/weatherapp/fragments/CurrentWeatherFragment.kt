@@ -3,41 +3,25 @@ package com.example.weatherapp.fragments
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.R
 import com.example.weatherapp.adapter.HourlyForecastRvAdapter
 import com.example.weatherapp.databinding.FragmentCurrentWeatherBinding
-import com.example.weatherapp.model.hourlyForecastData
+import com.example.weatherapp.model.HourlyForecastData
+import com.example.weatherapp.service.ApiClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
 
     private var _binding: FragmentCurrentWeatherBinding? = null
     private val binding get() = _binding!!
 
-
-    private var API_KEY = "42d2e302506a7c6c672dd39605397dee"
-
-    val hourlyForecast = listOf<hourlyForecastData>(
-        hourlyForecastData("14:00", "sunny", 20),
-        hourlyForecastData("15:00", "rain", 20),
-        hourlyForecastData("16:00", "cloudy", 20),
-        hourlyForecastData("17:00", "clear", 20),
-        hourlyForecastData("18:00", "sunny", 20),
-        hourlyForecastData("19:00", "sunny", 20),
-        hourlyForecastData("20:00", "sunny", 20),
-        hourlyForecastData("21:00", "sunny", 20),
-        hourlyForecastData("22:00", "sunny", 20),
-        hourlyForecastData("23:00", "sunny", 20),
-        hourlyForecastData("00:00", "sunny", 20),
-        hourlyForecastData("01:00", "sunny", 20),
-        hourlyForecastData("02:00", "sunny", 20),
-        hourlyForecastData("03:00", "sunny", 20),
-        hourlyForecastData("04:00", "sunny", 20),
-        hourlyForecastData("05:00", "sunny", 20),
-        hourlyForecastData("06:00", "sunny", 20),
-        hourlyForecastData("07:00", "sunny", 20),
-    )
+    val hourlyForecast = listOf<HourlyForecastData>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,9 +33,7 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
         binding.hourlyForecastRv.adapter = adapter
 
         binding.btnDailyForecast.setOnClickListener {
-
             findNavController().navigate(R.id.action_currentWeatherFragment_to_dailyForecastFragment)
-
         }
         binding.addCityButton.setOnClickListener {
             findNavController().navigate(R.id.action_currentWeatherFragment_to_addChangeCityFragment)
@@ -64,8 +46,49 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
         }
 
 
+        fetchWeatherData()
+
+
+
 
     }
+
+    private fun fetchWeatherData() {
+
+        val lat = 41.2995
+        val lon = 69.2401
+        val apiKey = "42d2e302506a7c6c672dd39605397dee"
+
+        lifecycleScope.launch {
+            try {
+                val response = ApiClient.apiService.getWeather(lat, lon, apiKey)
+                withContext(Dispatchers.Main) {
+                    // Joriy ob-havo ma’lumotlarini yangilash
+                    binding.currentCity.text = "Tashkent"
+                    binding.statusWeather.text = response.current.weather[0].description
+                    binding.currentTemp.text = "${response.current.temp}°"
+                    binding.currentHumidity.text = "${response.current.humidity}%"
+                    binding.currentWind.text = "${response.current.wind_speed} km/h"
+
+                    // Ikonni sozlash
+                    when (response.current.weather[0].icon) {
+                        "01d" -> binding.statusIcon.setImageResource(R.drawable.sun)
+                        else -> binding.statusIcon.setImageResource(R.drawable.cloudy)
+                    }
+
+                    // Soatlik bashorat RecyclerView
+                    val hourlyAdapter = HourlyForecastRvAdapter(response.hourly.take(24))
+                    binding.hourlyForecastRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    binding.hourlyForecastRv.adapter = hourlyAdapter
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Xato: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

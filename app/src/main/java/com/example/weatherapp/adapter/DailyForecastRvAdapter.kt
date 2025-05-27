@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.DailyItemBinding
-import com.example.weatherapp.model.dailyForecastData
+import com.example.weatherapp.model.DailyForecastData
 
-class DailyForecastRvAdapter (private val list: List<dailyForecastData>): RecyclerView.Adapter<DailyForecastRvAdapter.ViewHolder>(){
+class DailyForecastRvAdapter (private val list: List<DailyForecastData>): RecyclerView.Adapter<DailyForecastRvAdapter.ViewHolder>(){
 
     inner class ViewHolder(private val binding: DailyItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun onBind(item: dailyForecastData){
-            binding.forecastDay.text = item.date
-            binding.dayWeatherIcon.setImageResource(getIconForWeather(item.picPath))
+        fun onBind(item: DailyForecastData){
+            binding.forecastDay.text = java.text.SimpleDateFormat("EEEE").format(java.util.Date(item.dt * 1000))
+            binding.dayWeatherIcon.setImageResource(getIconForWeather(item.weather[0].icon))
             binding.dayWeatherTemp.text = "${item.temp}°"
         }
     }
@@ -36,9 +36,10 @@ class DailyForecastRvAdapter (private val list: List<dailyForecastData>): Recycl
 
     fun getIconForWeather(condition: String): Int {
         return when (condition.lowercase()) {
-            "clear", "sunny" -> R.drawable.sun
-            "cloudy" -> R.drawable.cloudy
-            "rain" -> R.drawable.rainy
+            "01d", "01n" -> R.drawable.sun
+            "02d", "02n" -> R.drawable.cloudy
+            "03d", "03n", "04d", "04n" -> R.drawable.cloudy
+            "09d", "09n", "10d", "10n" -> R.drawable.rainy
             else -> R.drawable.sun
         }
 

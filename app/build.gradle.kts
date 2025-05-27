@@ -36,6 +36,14 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    packagingOptions{
+        resources{
+            excludes += "/META-INF/INDEX.LIST"
+            excludes += "/META-INF/DEPENDENCIES"
+            excludes += "/META-INF/io.netty.versions.properties"
+        }
+    }
+
 }
 
 dependencies {
@@ -47,6 +55,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.firebase.appdistribution.gradle)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
