@@ -7,7 +7,5 @@ import com.example.weatherapp.model.hourlyForecastData
 
 interface ApiService {
 
-    @GET("onecall")
-    fun getForecast():Call<List<hourlyForecastData>>
 
 }
