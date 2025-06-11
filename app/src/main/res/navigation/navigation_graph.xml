@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
     app:startDestination="@id/currentWeatherFragment">
+    <action
+        android:id="@+id/action_global_currentWeatherFragment"
+        app:destination="@id/currentWeatherFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/currentWeatherFragment"
+        app:popUpToInclusive="true" />
+
 
     <fragment
         android:id="@+id/currentWeatherFragment"

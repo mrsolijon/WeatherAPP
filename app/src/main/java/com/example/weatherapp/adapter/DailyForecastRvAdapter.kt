@@ -13,7 +13,7 @@ class DailyForecastRvAdapter (private val list: List<DailyForecastData>): Recycl
         fun onBind(item: DailyForecastData){
             binding.forecastDay.text = java.text.SimpleDateFormat("EEEE").format(java.util.Date(item.dt * 1000))
             binding.dayWeatherIcon.setImageResource(getIconForWeather(item.weather[0].icon))
-            binding.dayWeatherTemp.text = "${item.temp}°"
+            binding.dayWeatherTemp.text = "${item.temp.day.toInt()}°"
         }
     }
 

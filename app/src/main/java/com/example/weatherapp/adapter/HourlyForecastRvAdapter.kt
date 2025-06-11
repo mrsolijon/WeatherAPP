@@ -14,7 +14,7 @@ class HourlyForecastRvAdapter (private val list: List<HourlyForecastData>): Recy
         fun onBind(item: HourlyForecastData){
             binding.forecastHour.text = java.text.SimpleDateFormat("HH:MM").format(java.util.Date(item.dt * 1000))
             binding.hourWeatherIcon.setImageResource(getIconForWeather(item.weather[0].icon))
-            binding.hourWeatherTemp.text = "${item.temp}°"
+            binding.hourWeatherTemp.text = "${item.temp.toInt()}°"
         }
 
     }

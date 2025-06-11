@@ -32,6 +32,21 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
         binding.hourlyForecastRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.hourlyForecastRv.adapter = adapter
 
+        val args = arguments
+        if (args != null) {
+            val lat = args.getDouble("lat",40.691)
+            val lon = args.getDouble("lon",71.9284)
+            fetchWeatherData(lat,lon)
+        }
+        else{
+
+//            71.9284  40.691
+            fetchWeatherData(40.691, 71.9284)
+//            fetchWeatherData(41.2995, 69.2401)
+        }
+
+
+
         binding.btnDailyForecast.setOnClickListener {
             findNavController().navigate(R.id.action_currentWeatherFragment_to_dailyForecastFragment)
         }
@@ -45,18 +60,11 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
             findNavController().navigate(R.id.action_currentWeatherFragment_to_settingsFragment)
         }
 
-
-        fetchWeatherData()
-
-
-
-
     }
 
-    private fun fetchWeatherData() {
+    private fun fetchWeatherData(lat: Double, lon: Double) {
 
-        val lat = 41.2995
-        val lon = 69.2401
+
         val apiKey = "42d2e302506a7c6c672dd39605397dee"
 
         lifecycleScope.launch {
@@ -66,7 +74,7 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
                     // Joriy ob-havo ma’lumotlarini yangilash
                     binding.currentCity.text = "Tashkent"
                     binding.statusWeather.text = response.current.weather[0].description
-                    binding.currentTemp.text = "${response.current.temp}°"
+                    binding.currentTemp.text = "${response.current.temp.toInt()}°"
                     binding.currentHumidity.text = "${response.current.humidity}%"
                     binding.currentWind.text = "${response.current.wind_speed} km/h"
 
