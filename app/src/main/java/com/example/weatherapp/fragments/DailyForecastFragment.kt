@@ -4,41 +4,42 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.weatherapp.BuildConfig
 import androidx.navigation.fragment.findNavController
 import com.example.weatherapp.adapter.DailyForecastRvAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.FragmentDailyForecastBinding
-import com.example.weatherapp.model.DailyForecastData
 import com.example.weatherapp.service.ApiClient
+import com.example.weatherapp.viewmodel.LocationViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.getValue
 
 class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
 
     private var _binding: FragmentDailyForecastBinding? = null
     private val binding get() = _binding!!
+    private val locationViewModel: LocationViewModel by activityViewModels()
+    private val apiKey = BuildConfig.WEATHER_API_KEY
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentDailyForecastBinding.bind(view)
+        val lat = locationViewModel.locationData.value?.latitude
+        val lon = locationViewModel.locationData.value?.longitude
+        fetchDailyForecast(lat,lon)
 
-        fetchDailyForecast()
-
-        //Ortga qaytish tugmasi
         binding.dailyForecastBackBtn.setOnClickListener {
             findNavController().popBackStack()
         }
     }
 
-    private fun fetchDailyForecast() {
-        val lat = 41.2995
-        val lon = 69.2401
-        val apiKey = "42d2e302506a7c6c672dd39605397dee"
-
+    private fun fetchDailyForecast(lat: Double?, lon: Double?) {
         lifecycleScope.launch {
             try {
                 val response = ApiClient.apiService.getWeather(lat, lon, apiKey)

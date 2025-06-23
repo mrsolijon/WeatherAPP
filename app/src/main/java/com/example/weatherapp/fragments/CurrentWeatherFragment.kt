@@ -1,108 +1,139 @@
 package com.example.weatherapp.fragments
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.R
 import com.example.weatherapp.adapter.HourlyForecastRvAdapter
 import com.example.weatherapp.databinding.FragmentCurrentWeatherBinding
-import com.example.weatherapp.model.HourlyForecastData
-import com.example.weatherapp.service.ApiClient
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.weatherapp.viewmodel.LocationViewModel
+import com.example.weatherapp.viewmodel.WeatherData
+import com.example.weatherapp.viewmodel.WeatherViewModel
 
 class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
 
     private var _binding: FragmentCurrentWeatherBinding? = null
     private val binding get() = _binding!!
 
-    val hourlyForecast = listOf<HourlyForecastData>()
+    private lateinit var weatherViewModel: WeatherViewModel
+    private val locationViewModel: LocationViewModel by activityViewModels()
+
+    private val locationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            locationViewModel.fetchLocation(requireContext())
+        } else {
+            Toast.makeText(requireContext(), "Lokatsiyaga ruxsat berilmadi", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         _binding = FragmentCurrentWeatherBinding.bind(view)
+        weatherViewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
 
-        val adapter = HourlyForecastRvAdapter(hourlyForecast)
-        binding.hourlyForecastRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.hourlyForecastRv.adapter = adapter
+        checkLocationPermission()
+        observeLocationViewModel()
+        observeWeatherViewModel()
 
-        val args = arguments
-        if (args != null) {
-            val lat = args.getDouble("lat",40.691)
-            val lon = args.getDouble("lon",71.9284)
-            fetchWeatherData(lat,lon)
-        }
-        else{
-
-//            71.9284  40.691
-            fetchWeatherData(40.691, 71.9284)
-//            fetchWeatherData(41.2995, 69.2401)
+        binding.refreshButton.setOnClickListener {
+            checkLocationPermission()
+            observeWeatherViewModel()
         }
 
-
-
-        binding.btnDailyForecast.setOnClickListener {
-            findNavController().navigate(R.id.action_currentWeatherFragment_to_dailyForecastFragment)
-        }
-        binding.addCityButton.setOnClickListener {
+        binding.currentCity.setOnClickListener {
             findNavController().navigate(R.id.action_currentWeatherFragment_to_addChangeCityFragment)
         }
-        binding.currentCity.setOnClickListener{
+        binding.addCityButton.setOnClickListener {
             findNavController().navigate(R.id.action_currentWeatherFragment_to_addChangeCityFragment)
         }
         binding.settingsButton.setOnClickListener {
             findNavController().navigate(R.id.action_currentWeatherFragment_to_settingsFragment)
         }
-
+        binding.btnDailyForecast.setOnClickListener {
+            findNavController().navigate(R.id.action_currentWeatherFragment_to_dailyForecastFragment)
+        }
     }
 
-    private fun fetchWeatherData(lat: Double, lon: Double) {
+    private fun checkLocationPermission() {
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                locationViewModel.fetchLocation(requireContext())
+            }
 
+            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                Toast.makeText(requireContext(), "Lokatsiya kerak: iltimos ruxsat bering", Toast.LENGTH_LONG).show()
+                locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
 
-        val apiKey = "42d2e302506a7c6c672dd39605397dee"
+            else -> {
+                locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+        }
+    }
 
-        lifecycleScope.launch {
-            try {
-                val response = ApiClient.apiService.getWeather(lat, lon, apiKey)
-                withContext(Dispatchers.Main) {
-                    // Joriy ob-havo ma’lumotlarini yangilash
-                    binding.currentCity.text = "Tashkent"
-                    binding.statusWeather.text = response.current.weather[0].description
-                    binding.currentTemp.text = "${response.current.temp.toInt()}°"
-                    binding.currentHumidity.text = "${response.current.humidity}%"
-                    binding.currentWind.text = "${response.current.wind_speed} km/h"
-
-                    // Ikonni sozlash
-                    when (response.current.weather[0].icon) {
-                        "01d" -> binding.statusIcon.setImageResource(R.drawable.sun)
-                        else -> binding.statusIcon.setImageResource(R.drawable.cloudy)
-                    }
-
-                    // Soatlik bashorat RecyclerView
-                    val hourlyAdapter = HourlyForecastRvAdapter(response.hourly.take(24))
-                    binding.hourlyForecastRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    binding.hourlyForecastRv.adapter = hourlyAdapter
+    private fun observeLocationViewModel() {
+        locationViewModel.locationData.observe(viewLifecycleOwner) { info ->
+            when {
+                info.isLoading -> {
+                    binding.currentCity.text = "Yuklanmoqda..."
                 }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "Xato: ${e.message}", Toast.LENGTH_LONG).show()
+                info.error != null -> {
+                    binding.currentCity.text = info.error
+                }
+                info.latitude != null && info.longitude != null -> {
+                    binding.currentCity.text = info.city
+                    weatherViewModel.loadWeatherData(info.latitude, info.longitude)
                 }
             }
         }
     }
 
+    private fun observeWeatherViewModel() {
+        weatherViewModel.uiWeatherData.observe(viewLifecycleOwner) { weather ->
+            weather?.let { updateUI(it) }
+        }
+
+        weatherViewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+            error?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun updateUI(weather: WeatherData) {
+        binding.statusWeather.text = weather.weatherStatus
+        binding.currentTemp.text = weather.temperature
+        binding.currentHumidity.text = weather.humidity
+        binding.currentWind.text = weather.windSpeed
+        binding.currentLat.text = locationViewModel.locationData.value?.latitude.toString()
+        binding.currentLon.text = locationViewModel.locationData.value?.longitude.toString()
+
+        when (weather.icon) {
+            "01d" -> binding.statusIcon.setImageResource(R.drawable.sun)
+            else -> binding.statusIcon.setImageResource(R.drawable.cloudy)
+        }
+
+        val hourlyAdapter = HourlyForecastRvAdapter(weather.hourly.take(24))
+        binding.hourlyForecastRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.hourlyForecastRv.adapter = hourlyAdapter
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
-
 }

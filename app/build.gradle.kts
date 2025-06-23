@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -13,8 +14,9 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
+        buildConfigField("String", "WEATHER_API_KEY", "${properties["WEATHER_API_KEY"]}")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
 
@@ -36,6 +38,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
     packagingOptions{
         resources{
@@ -64,6 +67,5 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-//    implementation (libs.google.play.services.location)
 
 }

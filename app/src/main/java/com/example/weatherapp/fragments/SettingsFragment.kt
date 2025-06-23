@@ -20,7 +20,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
 
         binding.settingsBackButton.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFragment_to_currentWeatherFragment)
+            findNavController().popBackStack()
         }
 
     }

@@ -9,8 +9,8 @@ interface ApiService {
 
     @GET("data/3.0/onecall")
     suspend fun getWeather(
-        @Query("lat") lat: Double,
-        @Query("lon") lon: Double,
+        @Query("lat") lat: Double?,
+        @Query("lon") lon: Double?,
         @Query("appid") apiKey: String,
         @Query("units") units: String = "metric",
         @Query("lang") lang: String = "uz"

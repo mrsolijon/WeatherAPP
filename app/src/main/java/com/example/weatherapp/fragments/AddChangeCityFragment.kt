@@ -18,7 +18,7 @@ class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {
         _binding = FragmentAddChangeCityBinding.bind(view)
 
         binding.addChangeCityBackBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_addChangeCityFragment_to_currentWeatherFragment)
+            findNavController().popBackStack()
         }
 
     }
