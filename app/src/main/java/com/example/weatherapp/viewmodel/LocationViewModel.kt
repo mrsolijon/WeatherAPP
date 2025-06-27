@@ -5,6 +5,7 @@ import android.content.Context
 import android.location.Geocoder
 import android.location.Location
 import android.os.Looper
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -85,7 +86,7 @@ class LocationViewModel : ViewModel() {
             val address = geo.getFromLocation(lat, lon, 1)
             address?.get(0)?.locality ?: "Noma'lum joy"
         } catch (e: Exception) {
-            "Shahar aniqlanmadi"
-        }
+            LocationInfo(isLoading = false, error = "${e.message}")
+        }.toString()
     }
 }
