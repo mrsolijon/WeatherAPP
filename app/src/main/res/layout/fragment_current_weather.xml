@@ -118,16 +118,16 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/current_lat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="4dp"
-                android:text="30"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="40sp"
-                />
+<!--            <TextView-->
+<!--                android:id="@+id/current_lat"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingTop="4dp"-->
+<!--                android:text="30"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="40sp"-->
+<!--                />-->
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -163,16 +163,16 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/current_lon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="4dp"
-                android:text="30"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="40sp"
-                />
+<!--            <TextView-->
+<!--                android:id="@+id/current_lon"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingTop="4dp"-->
+<!--                android:text="30"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="40sp"-->
+<!--                />-->
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

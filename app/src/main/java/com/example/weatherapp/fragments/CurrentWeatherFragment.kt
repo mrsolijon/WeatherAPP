@@ -119,8 +119,8 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
         binding.currentTemp.text = weather.temperature
         binding.currentHumidity.text = weather.humidity
         binding.currentWind.text = weather.windSpeed
-        binding.currentLat.text = locationViewModel.locationData.value?.latitude.toString()
-        binding.currentLon.text = locationViewModel.locationData.value?.longitude.toString()
+//        binding.currentLat.text = locationViewModel.locationData.value?.latitude.toString()
+//        binding.currentLon.text = locationViewModel.locationData.value?.longitude.toString()
 
         when (weather.icon) {
             "01d" -> binding.statusIcon.setImageResource(R.drawable.sun)
