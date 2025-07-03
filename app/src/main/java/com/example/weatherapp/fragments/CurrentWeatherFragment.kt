@@ -115,7 +115,7 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
     }
 
     private fun updateUI(weather: WeatherData) {
-        binding.statusWeather.text = weather.weatherStatus
+//        binding.statusWeather.text = weather.weatherStatus
         binding.currentTemp.text = weather.temperature
         binding.currentHumidity.text = weather.humidity
         binding.currentWind.text = weather.windSpeed
@@ -123,8 +123,35 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
 //        binding.currentLon.text = locationViewModel.locationData.value?.longitude.toString()
 
         when (weather.icon) {
-            "01d" -> binding.statusIcon.setImageResource(R.drawable.sun)
-            else -> binding.statusIcon.setImageResource(R.drawable.cloudy)
+            "01d", "01n" -> {
+                binding.statusIcon.setImageResource(R.drawable.sunny)
+                binding.statusWeather.text = "Quyoshli"
+            }
+            "02d","02n"->{
+                binding.statusIcon.setImageResource(R.drawable.cloudy_sunny)
+                binding.statusWeather.text = "Bulutli Quyoshli"}
+            "03d","03n"->{
+                binding.statusIcon.setImageResource(R.drawable.cloudy)
+                binding.statusWeather.text = "Biroz Bulutli"}
+            "04d","04n"->{
+                binding.statusIcon.setImageResource(R.drawable.cloudy_3)
+                binding.statusWeather.text = "Bulutli"}
+            "09d","09n"->{
+                binding.statusIcon.setImageResource(R.drawable.rainy)
+                binding.statusWeather.text = "Kuchli Yomg'ir"}
+            "10d","10n"->{
+                binding.statusIcon.setImageResource(R.drawable.rainy)
+                binding.statusWeather.text = "Yomg'ir"}
+            "11d","11n"->{
+                binding.statusIcon.setImageResource(R.drawable.storm)
+                binding.statusWeather.text = "Jala"}
+            "13d","13n"->{
+                binding.statusIcon.setImageResource(R.drawable.snowy)
+                binding.statusWeather.text = "Qor"}
+            else -> {
+                binding.statusIcon.setImageResource(R.drawable.cloudy)
+                binding.statusWeather.text = "Bulutli"
+            }
         }
 
         val hourlyAdapter = HourlyForecastRvAdapter(weather.hourly.take(24))

@@ -12,7 +12,6 @@ import com.example.weatherapp.model.WeatherResponse
 import kotlinx.coroutines.launch
 import com.example.weatherapp.BuildConfig
 
-// UI uchun ma'lumotlarni saqlaydigan data class (o'zgarmagan)
 data class WeatherData(
     val cityName: String = "Noma'lum",
     val temperature: String = "--°C",
@@ -41,10 +40,8 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    /**
-     * Berilgan koordinatalar uchun ob-havo ma'lumotlarini yuklaydi.
-     * Bu funksiyani CurrentWeatherFragment yoki MainActivity chaqirishi mumkin.
-     */
+    //   Berilgan koordinatalar uchun ob-havo ma'lumotlarini olish uchun.
+
     fun loadWeatherData(latitude: Double, longitude: Double) {
         _isLoading.value = true
         viewModelScope.launch {

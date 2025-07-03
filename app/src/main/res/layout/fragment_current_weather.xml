@@ -67,13 +67,12 @@
     <ImageView
         android:id="@+id/status_icon"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:src="@drawable/sun"
+        android:layout_height="wrap_content"
         android:background="@drawable/background_blur"
+        android:src="@drawable/sunny"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_layout"
-        />
+        app:layout_constraintTop_toBottomOf="@id/header_layout" />
 
     <TextView
         android:id="@+id/status_weather"

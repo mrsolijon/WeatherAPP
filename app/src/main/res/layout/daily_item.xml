@@ -19,7 +19,7 @@
         android:id="@+id/day_weather_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/sun" />
+        android:src="@drawable/ic_01d" />
 
     <TextView
         android:id="@+id/day_weather_temp"

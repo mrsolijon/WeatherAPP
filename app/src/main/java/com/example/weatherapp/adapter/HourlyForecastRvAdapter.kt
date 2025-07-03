@@ -34,7 +34,7 @@ class HourlyForecastRvAdapter (private val list: List<HourlyForecastData>): Recy
 
     fun getIconForWeather(condition: String): Int {
         return when (condition.lowercase()) {
-            "01d", "01n" -> R.drawable.sun
+            "01d", "01n" -> R.drawable.sunny
             "02d", "02n" -> R.drawable.cloudy
             "03d", "03n", "04d", "04n" -> R.drawable.cloudy
             "09d", "09n", "10d", "10n" -> R.drawable.rainy
