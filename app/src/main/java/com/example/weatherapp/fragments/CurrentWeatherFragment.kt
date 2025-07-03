@@ -115,12 +115,9 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
     }
 
     private fun updateUI(weather: WeatherData) {
-//        binding.statusWeather.text = weather.weatherStatus
         binding.currentTemp.text = weather.temperature
         binding.currentHumidity.text = weather.humidity
         binding.currentWind.text = weather.windSpeed
-//        binding.currentLat.text = locationViewModel.locationData.value?.latitude.toString()
-//        binding.currentLon.text = locationViewModel.locationData.value?.longitude.toString()
 
         when (weather.icon) {
             "01d", "01n" -> {
