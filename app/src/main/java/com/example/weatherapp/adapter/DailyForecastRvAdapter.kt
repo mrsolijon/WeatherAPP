@@ -1,25 +1,32 @@
 package com.example.weatherapp.adapter
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.R
-import com.example.weatherapp.databinding.DailyItemBinding
+import com.example.weatherapp.databinding.ItemDailyBinding
+import com.example.weatherapp.fragments.CurrentWeatherFragment.Companion.getWeatherUI
 import com.example.weatherapp.model.DailyForecastData
 
-class DailyForecastRvAdapter (private val list: List<DailyForecastData>): RecyclerView.Adapter<DailyForecastRvAdapter.ViewHolder>(){
+class DailyForecastRvAdapter (
+    private val list: List<DailyForecastData>):
+    RecyclerView.Adapter<DailyForecastRvAdapter.ViewHolder>(){
 
-    inner class ViewHolder(private val binding: DailyItemBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(private val binding: ItemDailyBinding): RecyclerView.ViewHolder(binding.root){
+
         fun onBind(item: DailyForecastData){
-            binding.forecastDay.text = java.text.SimpleDateFormat("EEEE").format(java.util.Date(item.dt * 1000))
-            binding.dayWeatherIcon.setImageResource(getIconForWeather(item.weather[0].icon))
+            val (iconRes,status) = getWeatherUI(item.weather[0].icon)
+            binding.forecastDay.text = getDayName(item.dt)
+            binding.dayWeatherIcon.setImageResource(iconRes)
+            @SuppressLint("SetTextI18n")
             binding.dayWeatherTemp.text = "${item.temp.day.toInt()}°"
+            binding.dayWeatherStatus.text = status
         }
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = DailyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemDailyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(view)
     }
@@ -33,16 +40,25 @@ class DailyForecastRvAdapter (private val list: List<DailyForecastData>): Recycl
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(list[position])
     }
-
-    fun getIconForWeather(condition: String): Int {
-        return when (condition.lowercase()) {
-            "01d", "01n" -> R.drawable.sun
-            "02d", "02n" -> R.drawable.cloudy
-            "03d", "03n", "04d", "04n" -> R.drawable.cloudy
-            "09d", "09n", "10d", "10n" -> R.drawable.rainy
-            else -> R.drawable.sun
+    fun getDayName(timestamp: Long): String {
+        val sdf = java.text.SimpleDateFormat("EEEE", java.util.Locale.ENGLISH)
+        val date = java.util.Date(timestamp * 1000)
+        val name = when(sdf.format(date)){
+            "Monday"->"Dushanba"
+            "Tuesday"->"Seshanba"
+            "Wednesday"->"Chorshanba"
+            "Thursday"->"Payshanba"
+            "Friday"->"Juma"
+            "Saturday"->"Shanba"
+            "Sunday"->"Yakshanba"
+            else -> {"Kun aniqlanmadi"}
         }
 
+        return name
     }
+
+
+
+
 
 }

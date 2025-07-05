@@ -1,5 +1,6 @@
 package com.example.weatherapp.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -37,15 +38,26 @@ class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
         binding.dailyForecastBackBtn.setOnClickListener {
             findNavController().popBackStack()
         }
+
     }
+
 
     private fun fetchDailyForecast(lat: Double?, lon: Double?) {
         lifecycleScope.launch {
             try {
-                val response = ApiClient.apiService.getWeather(lat, lon, apiKey)
+                val response = ApiClient.weatherApiService.getWeather(lat, lon, apiKey)
                 withContext(Dispatchers.Main) {
-                    val dailyAdapter = DailyForecastRvAdapter(response.daily)
+                    val dailyAdapter = DailyForecastRvAdapter(response.daily.drop(1).take(6))
+                    val (iconRes,status) = CurrentWeatherFragment.getWeatherUI(response.daily[0].weather[0].icon)
                     binding.dailyForecastRV.layoutManager = LinearLayoutManager(context)
+                    binding.tomarrowStatusIcon.setImageResource(iconRes)
+                    binding.tomarrowStatusWeather.text = status
+                    @SuppressLint("SetTextI18n")
+                    binding.tommarrowTemp.text ="${response.daily[0].temp.day.toInt()}°"
+                    @SuppressLint("SetTextI18n")
+                    binding.tomarrowHumidity.text = "${response.daily[0].humidity.toInt()} %"
+                    @SuppressLint("SetTextI18n")
+                    binding.tomarrowWind.text = "${response.daily[0].wind_speed} m/s"
                     binding.dailyForecastRV.adapter = dailyAdapter
                 }
             } catch (e: Exception) {

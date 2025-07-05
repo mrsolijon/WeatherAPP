@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
-import com.example.weatherapp.databinding.HourlyItemBinding
+import com.example.weatherapp.databinding.ItemHourlyBinding
 import com.example.weatherapp.model.HourlyForecastData
 
 class HourlyForecastRvAdapter (private val list: List<HourlyForecastData>): RecyclerView.Adapter<HourlyForecastRvAdapter.ViewHolder>(){
 
-    inner class ViewHolder(private val binding: HourlyItemBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(private val binding: ItemHourlyBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun onBind(item: HourlyForecastData){
             binding.forecastHour.text = java.text.SimpleDateFormat("HH:mm").format(java.util.Date(item.dt * 1000))
@@ -20,7 +20,7 @@ class HourlyForecastRvAdapter (private val list: List<HourlyForecastData>): Recy
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = HourlyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemHourlyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
 
@@ -34,10 +34,18 @@ class HourlyForecastRvAdapter (private val list: List<HourlyForecastData>): Recy
 
     fun getIconForWeather(condition: String): Int {
         return when (condition.lowercase()) {
-            "01d", "01n" -> R.drawable.sunny
-            "02d", "02n" -> R.drawable.cloudy
-            "03d", "03n", "04d", "04n" -> R.drawable.cloudy
-            "09d", "09n", "10d", "10n" -> R.drawable.rainy
+            "01d" -> R.drawable.sun
+            "01n" -> R.drawable.moon
+            "02d" -> R.drawable.cloudy_sunny
+            "02n" -> R.drawable.cloudy_moon
+            "03d", "03n" -> R.drawable.cloud
+            "04d", "04n" -> R.drawable.cloudy
+            "09d", "09n" -> R.drawable.rain
+            "10d" -> R.drawable.rainy_sun
+            "10n" -> R.drawable.rainy_night
+            "11d","11n" ->R.drawable.thunderstorm
+            "13d","13n" ->R.drawable.snow
+            "50d","50n" ->R.drawable.mist
             else -> R.drawable.sun
         }
 

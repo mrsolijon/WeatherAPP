@@ -9,7 +9,12 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.weatherapp.service.ApiClient
 import com.google.android.gms.location.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Locale
 
 @Suppress("DEPRECATION", "DEPRECATION")
@@ -78,6 +83,42 @@ class LocationViewModel : ViewModel() {
             },
             Looper.getMainLooper()
         )
+    }
+    fun searchCityCoordinates(cityName: String, context: Context, apiKey: String) {
+        _locationData.value = LocationInfo(isLoading = true)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val cities = ApiClient.cityApiService.getCityCoordinates(
+                    cityName = cityName,
+                    apiKey = apiKey
+                )
+                if (cities.isNotEmpty()) {
+                    val city = cities[0]
+                    LocationInfo(
+                        latitude = city.lat,
+                        longitude = city.lon,
+                        city = cityName,
+                        isLoading = false
+                    )
+                }
+                else{
+                    withContext(Dispatchers.Main) {
+                        _locationData.value = LocationInfo(
+                            isLoading = false,
+                            error = "Shahar topilmadi"
+                        )
+                    }
+                }
+
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    _locationData.value = LocationInfo(
+                        isLoading = false,
+                        error = "${e.message}"
+                    )
+                }
+            }
+        }
     }
 
     private fun getCityName(context: Context, lat: Double, lon: Double): String {

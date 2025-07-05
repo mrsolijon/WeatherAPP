@@ -28,7 +28,7 @@ val apiKey = BuildConfig.WEATHER_API_KEY
 
 class WeatherViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val weatherApiService = ApiClient.apiService
+    private val weatherApiService = ApiClient.weatherApiService
 
     // LiveData obyektlari
     private val _uiWeatherData = MutableLiveData<WeatherData>()

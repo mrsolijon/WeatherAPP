@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/backgroundn"
     tools:context=".fragments.DailyForecastFragment">
@@ -31,13 +32,20 @@
         android:textColor="@color/white"
         />
 
-    <SearchView
+    <com.google.android.material.search.SearchBar
+        android:id="@+id/search_city"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:autofillHints="Shaxar nomini kiriting"
+        android:layout_height="wrap_content"
+        android:hint="Shaxar nomini kiriting"
         android:background="@drawable/background_button"
-
-        />
+        app:titleTextColor="@color/black"
+    />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/city_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone" />
 
 
 

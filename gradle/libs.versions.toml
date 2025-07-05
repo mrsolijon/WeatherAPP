@@ -16,6 +16,7 @@ navigationUiKtx = "2.9.0"
 firebaseAppdistributionGradle = "5.1.1"
 #playServicesLocationVersion = "21.1.0"
 playServicesLocation = "21.1.0"
+firebaseMessaging = "24.1.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,6 +34,7 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 firebase-appdistribution-gradle = { group = "com.google.firebase", name = "firebase-appdistribution-gradle", version.ref = "firebaseAppdistributionGradle" }
 #google-play-services-location = { group = "com.google.gms", name = "play-services-location", version.ref = "playServicesLocationVersion" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

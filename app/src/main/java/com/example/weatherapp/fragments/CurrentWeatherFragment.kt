@@ -115,42 +115,13 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
     }
 
     private fun updateUI(weather: WeatherData) {
+
+        val (iconRes, status) = getWeatherUI(weather.icon)
+        binding.statusIcon.setImageResource(iconRes)
         binding.currentTemp.text = weather.temperature
         binding.currentHumidity.text = weather.humidity
         binding.currentWind.text = weather.windSpeed
-
-        when (weather.icon) {
-            "01d", "01n" -> {
-                binding.statusIcon.setImageResource(R.drawable.sunny)
-                binding.statusWeather.text = "Quyoshli"
-            }
-            "02d","02n"->{
-                binding.statusIcon.setImageResource(R.drawable.cloudy_sunny)
-                binding.statusWeather.text = "Bulutli Quyoshli"}
-            "03d","03n"->{
-                binding.statusIcon.setImageResource(R.drawable.cloudy)
-                binding.statusWeather.text = "Biroz Bulutli"}
-            "04d","04n"->{
-                binding.statusIcon.setImageResource(R.drawable.cloudy_3)
-                binding.statusWeather.text = "Bulutli"}
-            "09d","09n"->{
-                binding.statusIcon.setImageResource(R.drawable.rainy)
-                binding.statusWeather.text = "Kuchli Yomg'ir"}
-            "10d","10n"->{
-                binding.statusIcon.setImageResource(R.drawable.rainy)
-                binding.statusWeather.text = "Yomg'ir"}
-            "11d","11n"->{
-                binding.statusIcon.setImageResource(R.drawable.storm)
-                binding.statusWeather.text = "Jala"}
-            "13d","13n"->{
-                binding.statusIcon.setImageResource(R.drawable.snowy)
-                binding.statusWeather.text = "Qor"}
-            else -> {
-                binding.statusIcon.setImageResource(R.drawable.cloudy)
-                binding.statusWeather.text = "Bulutli"
-            }
-        }
-
+        binding.statusWeather.text = status
         val hourlyAdapter = HourlyForecastRvAdapter(weather.hourly.take(24))
         binding.hourlyForecastRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.hourlyForecastRv.adapter = hourlyAdapter
@@ -159,5 +130,24 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        fun getWeatherUI(icon: String): Pair<Int, String> {
+            return when (icon.lowercase()) {
+                "01d" -> R.drawable.sun to "Quyoshli ochiq havo"
+                "01n" -> R.drawable.moon to "Ochiq havo"
+                "02d" -> R.drawable.cloudy_sunny to "Bulutli Quyoshli"
+                "02n" -> R.drawable.cloudy_moon to "Bulutli Tun"
+                "03d", "03n" -> R.drawable.cloud to "Biroz Bulutli"
+                "04d", "04n" -> R.drawable.cloudy to "Bulutli"
+                "09d", "09n" -> R.drawable.rain to "Kuchli Yomg'ir"
+                "10d" -> R.drawable.rainy_sun to "Yomg'ir"
+                "10n" -> R.drawable.rainy_night to "Yomg'ir"
+                "11d", "11n" -> R.drawable.thunderstorm to "Bo'ron"
+                "13d", "13n" -> R.drawable.snow to "Qor"
+                else -> R.drawable.cloudy to "Bulutli"
+            }
+        }
     }
 }
