@@ -15,12 +15,11 @@
         >
         <ImageButton
             android:id="@+id/add_change_city_back_btn"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@mipmap/back"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
@@ -39,7 +38,6 @@
         android:layout_margin="8dp"
         android:background="@drawable/back_search"
         app:queryHint="Shaxar nomini kiriting"
-        android:textAppearance="@color/black"
         app:iconifiedByDefault="false" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -47,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
+        android:visibility="invisible"
     />
 
 </LinearLayout>

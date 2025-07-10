@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="City"
-        android:textSize="16sp"
+        android:textSize="22sp"
         android:textColor="#ffffff" />
 
     <TextView
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Country"
-        android:textSize="14sp"
+        android:textSize="18sp"
         android:textColor="#666666" />
 
 </LinearLayout>

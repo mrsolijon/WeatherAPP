@@ -56,6 +56,7 @@ class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {
                     return false
                 }
                 override fun onQueryTextChange(text: String?): Boolean {
+                    binding.cityList.visibility = View.VISIBLE
                     filterCities(text.orEmpty())
                     return true
                 }
