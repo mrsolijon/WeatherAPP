@@ -1,6 +1,7 @@
 package com.example.weatherapp.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel // Agar string resurslari kabi narsalar uchun Application context kerak bo'lsa
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -40,15 +41,17 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
+
     //   Berilgan koordinatalar uchun ob-havo ma'lumotlarini olish uchun.
 
-    fun loadWeatherData(latitude: Double, longitude: Double) {
+    fun loadWeatherData(latitude: Double, longitude: Double,cityName: String? =null) {
+        Log.d("Shaxar loadda", "Tanlandi: $latitude, $longitude")
         _isLoading.value = true
         viewModelScope.launch {
             try {
                 val response = weatherApiService.getWeather(latitude, longitude, apiKey)
                 val mappedData = mapResponseToUiData(response)
-                _uiWeatherData.postValue(mappedData)
+                _uiWeatherData.postValue(mappedData.copy(cityName = cityName.toString()))
             } catch (e: Exception) {
                 _errorMessage.postValue("Ob-havo ma'lumotlarini yuklashda xatolik: ${e.message}")
             } finally {
@@ -59,7 +62,6 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
 
     private fun mapResponseToUiData(response: WeatherResponse): WeatherData {
         return WeatherData(
-            cityName = response.timezone,
             temperature = "${response.current.temp.toInt()}C°",
             weatherStatus = response.current.weather.firstOrNull()?.description ?: "Noma'lum",
             humidity = "${response.current.humidity}%",
@@ -69,7 +71,6 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
             hourly = response.hourly,
             daily = response.daily,
             icon = response.current.weather.firstOrNull()?.icon ?: "01d"
-
         )
     }
 }

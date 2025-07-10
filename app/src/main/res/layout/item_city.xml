@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_margin="8dp"
     android:background="@drawable/backgroundn"
     android:padding="8dp">
 
@@ -10,6 +11,7 @@
         android:id="@+id/city_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="City"
         android:textSize="16sp"
         android:textColor="#ffffff" />
 
@@ -17,6 +19,7 @@
         android:id="@+id/city_country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Country"
         android:textSize="14sp"
         android:textColor="#666666" />
 

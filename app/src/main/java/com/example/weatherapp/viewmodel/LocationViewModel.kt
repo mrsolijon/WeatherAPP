@@ -5,16 +5,11 @@ import android.content.Context
 import android.location.Geocoder
 import android.location.Location
 import android.os.Looper
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weatherapp.service.ApiClient
+import com.example.weatherapp.model.CityResponse
 import com.google.android.gms.location.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.Locale
 
 @Suppress("DEPRECATION", "DEPRECATION")
@@ -25,11 +20,14 @@ class LocationViewModel : ViewModel() {
         val longitude: Double? = null,
         val city: String? = null,
         val isLoading: Boolean = false,
-        val error: String? = null
+        val error: String? = null,
+        val isManuallySelected: Boolean = false
     )
 
     private val _locationData = MutableLiveData<LocationInfo>()
     val locationData: LiveData<LocationInfo> get() = _locationData
+    private val _citiesList = MutableLiveData<List<CityResponse>>()
+    val citiesList: LiveData<List<CityResponse>> get() = _citiesList
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -52,6 +50,7 @@ class LocationViewModel : ViewModel() {
                         val latitude = location.latitude
                         val longitude = location.longitude
                         val city = getCityName(context, latitude, longitude)
+                        if(_locationData.value.isManuallySelected!=true){
                         _locationData.postValue(
                             LocationInfo(
                                 latitude = latitude,
@@ -59,7 +58,7 @@ class LocationViewModel : ViewModel() {
                                 city = city,
                                 isLoading = false
                             )
-                        )
+                        )}
                     } else {
                         _locationData.postValue(
                             LocationInfo(
@@ -75,7 +74,7 @@ class LocationViewModel : ViewModel() {
                         _locationData.postValue(
                             LocationInfo(
                                 isLoading = false,
-                                error = "Lokatsiya mavjud emas"
+                                error = "Lokatsiya aniqlanmoqda"
                             )
                         )
                     }
@@ -84,42 +83,6 @@ class LocationViewModel : ViewModel() {
             Looper.getMainLooper()
         )
     }
-    fun searchCityCoordinates(cityName: String, context: Context, apiKey: String) {
-        _locationData.value = LocationInfo(isLoading = true)
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val cities = ApiClient.cityApiService.getCityCoordinates(
-                    cityName = cityName,
-                    apiKey = apiKey
-                )
-                if (cities.isNotEmpty()) {
-                    val city = cities[0]
-                    LocationInfo(
-                        latitude = city.lat,
-                        longitude = city.lon,
-                        city = cityName,
-                        isLoading = false
-                    )
-                }
-                else{
-                    withContext(Dispatchers.Main) {
-                        _locationData.value = LocationInfo(
-                            isLoading = false,
-                            error = "Shahar topilmadi"
-                        )
-                    }
-                }
-
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    _locationData.value = LocationInfo(
-                        isLoading = false,
-                        error = "${e.message}"
-                    )
-                }
-            }
-        }
-    }
 
     private fun getCityName(context: Context, lat: Double, lon: Double): String {
         return try {
@@ -127,7 +90,19 @@ class LocationViewModel : ViewModel() {
             val address = geo.getFromLocation(lat, lon, 1)
             address?.get(0)?.locality ?: "Noma'lum joy"
         } catch (e: Exception) {
-            LocationInfo(isLoading = false, error = "${e.message}")
+            LocationInfo(isLoading = false, error = "Topilmadi")
         }.toString()
+    }
+
+    fun updateSelectedCity(city: String, lat: Double, lon: Double) {
+        _locationData.postValue(
+            LocationInfo(
+                latitude = lat,
+                longitude = lon,
+                city = city,
+                isLoading = false,
+                isManuallySelected = true
+            )
+        )
     }
 }

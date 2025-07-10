@@ -3,13 +3,13 @@ package com.example.weatherapp.fragments
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.R
@@ -24,30 +24,52 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
     private var _binding: FragmentCurrentWeatherBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var weatherViewModel: WeatherViewModel
+    private val weatherViewModel: WeatherViewModel by activityViewModels()
     private val locationViewModel: LocationViewModel by activityViewModels()
-
     private val locationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-            locationViewModel.fetchLocation(requireContext())
+                locationViewModel.fetchLocation(requireContext())
         } else {
             Toast.makeText(requireContext(), "Lokatsiyaga ruxsat berilmadi", Toast.LENGTH_SHORT).show()
         }
     }
+    private var firstInit = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCurrentWeatherBinding.bind(view)
-        weatherViewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
 
-        checkLocationPermission()
-        observeLocationViewModel()
-        observeWeatherViewModel()
+        if (firstInit) {
+            checkLocationPermission()
+            observeLocationViewModel()
+            observeWeatherViewModel()
+            firstInit = false
+        }else{
+            observeLocationViewModel()
+            if (locationViewModel.locationData.value.isManuallySelected){
+                observeWeatherViewModel()
+            }else{
+                weatherViewModel.uiWeatherData.value.let { updateUI(it) }
+            }
+        }
 
         binding.refreshButton.setOnClickListener {
+            locationViewModel.locationData.value?.let { info ->
+                if (info.latitude != null && info.longitude != null) {
+                    weatherViewModel.loadWeatherData(info.latitude, info.longitude)
+                    observeLocationViewModel()
+                    observeWeatherViewModel()
+                } else {
+                    checkLocationPermission()
+                }
+            }
+        }
+
+        binding.refreshLocation.setOnClickListener {
             checkLocationPermission()
+            observeLocationViewModel()
             observeWeatherViewModel()
         }
 
@@ -71,14 +93,12 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED -> {
-                locationViewModel.fetchLocation(requireContext())
+                    locationViewModel.fetchLocation(requireContext())
             }
-
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
                 Toast.makeText(requireContext(), "Lokatsiya kerak: iltimos ruxsat bering", Toast.LENGTH_LONG).show()
                 locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
-
             else -> {
                 locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
@@ -87,6 +107,7 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
 
     private fun observeLocationViewModel() {
         locationViewModel.locationData.observe(viewLifecycleOwner) { info ->
+            Log.d("Shaxar observe location", "Selected city: $info")
             when {
                 info.isLoading -> {
                     binding.currentCity.text = "Yuklanmoqda..."

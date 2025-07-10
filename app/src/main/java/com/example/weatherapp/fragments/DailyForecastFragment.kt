@@ -47,17 +47,17 @@ class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
             try {
                 val response = ApiClient.weatherApiService.getWeather(lat, lon, apiKey)
                 withContext(Dispatchers.Main) {
-                    val dailyAdapter = DailyForecastRvAdapter(response.daily.drop(1).take(6))
-                    val (iconRes,status) = CurrentWeatherFragment.getWeatherUI(response.daily[0].weather[0].icon)
+                    val dailyAdapter = DailyForecastRvAdapter(response.daily.drop(2).take(6))
+                    val (iconRes,status) = CurrentWeatherFragment.getWeatherUI(response.daily[1].weather[0].icon)
                     binding.dailyForecastRV.layoutManager = LinearLayoutManager(context)
                     binding.tomarrowStatusIcon.setImageResource(iconRes)
                     binding.tomarrowStatusWeather.text = status
                     @SuppressLint("SetTextI18n")
-                    binding.tommarrowTemp.text ="${response.daily[0].temp.day.toInt()}°"
+                    binding.tommarrowTemp.text ="${response.daily[1].temp.day.toInt()}°"
                     @SuppressLint("SetTextI18n")
-                    binding.tomarrowHumidity.text = "${response.daily[0].humidity.toInt()} %"
+                    binding.tomarrowHumidity.text = "${response.daily[1].humidity.toInt()} %"
                     @SuppressLint("SetTextI18n")
-                    binding.tomarrowWind.text = "${response.daily[0].wind_speed} m/s"
+                    binding.tomarrowWind.text = "${response.daily[1].wind_speed} m/s"
                     binding.dailyForecastRV.adapter = dailyAdapter
                 }
             } catch (e: Exception) {
