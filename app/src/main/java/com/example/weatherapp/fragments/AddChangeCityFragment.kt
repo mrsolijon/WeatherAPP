@@ -91,18 +91,18 @@ class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {
     }
 
     private val cityList = listOf(
-        CityResponse("Oqyop", 41.27051, 61.15344, "Uzbekistan"),
-        CityResponse("Qo’shko’pir", 41.26318, 61.15479, "Uzbekistan"),
-        CityResponse("Aloqaliko’l", 41.25855, 61.18816, "Uzbekistan"),
-        CityResponse("Katta-Juvaixas", 41.28111, 61.21901, "Uzbekistan"),
-        CityResponse("Ayrityop", 41.28613, 61.25642, "Uzbekistan"),
-        CityResponse("Oyoqovul", 41.23406, 61.15691, "Uzbekistan"),
-        CityResponse("Oyoqova", 41.1845, 61.27417, "Uzbekistan"),
-        CityResponse("Sayatlar", 41.18836, 61.31486, "Uzbekistan"),
-        CityResponse("Xidirov Nomli", 41.63615, 60.30069, "Uzbekistan"),
-        CityResponse("Chudzha", 40.92935, 71.8703, "Uzbekistan"),
-        CityResponse("Chimgon", 41.54962, 70.02479, "Uzbekistan"),
-        CityResponse("Chimgon cable car station", 41.5255, 70.02083, "Uzbekistan"),
+        CityResponse("Dubai", 25.07725, 55.30927, "UAE"),
+        CityResponse("Paris", 48.85341, 2.3488, "France"),
+        CityResponse("Moscow", 55.75222, 37.61556, "Russia"),
+        CityResponse("New York", 40.71427, -74.00597, "USA"),
+        CityResponse("Istanbul", 41.01384, 28.94966, "Turkey"),
+        CityResponse("Astana", 51.1801, 71.44598, "Kazakhstan"),
+        CityResponse("Berlin", 52.52437, 13.41053, "Germany"),
+        CityResponse("Madrid", 40.4165, -3.70256, "Spain"),
+        CityResponse("Munich", 48.13743, 11.57549, "Germany"),
+        CityResponse("Seoul", 37.566, 126.9784, "South Korea"),
+        CityResponse("Tokyo", 35.6895, 139.69171, "Japan"),
+        CityResponse("Toshkent", 41.26465, 69.21627, "Uzbekistan"),
         CityResponse("Andijon", 40.6078, 68.24331, "Uzbekistan"),
         CityResponse("Shahrixon", 40.71331, 72.05706, "Uzbekistan"),
         CityResponse("Asaka", 40.64153, 72.23868, "Uzbekistan"),
@@ -110,8 +110,14 @@ class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {
         CityResponse("Poytug‘", 40.8977, 72.2449, "Uzbekistan"),
         CityResponse("Xonobod", 40.8026, 72.97499, "Uzbekistan"),
         CityResponse("Namangan", 40.9983, 71.67257, "Uzbekistan"),
-        CityResponse("London", 51.3030, 0.7320, "United Kingdom")
-
-        )
+        CityResponse("London", 51.3030, 0.7320, "United Kingdom"),
+        CityResponse("Farg'ona", 40.38421, 71.78432, "Uzbekistan"),
+        CityResponse("Samarqand", 39.65417, 66.95972, "Uzbekistan"),
+        CityResponse("Guliston", 40.48972, 68.78417, "Uzbekistan"),
+        CityResponse("Buxoro", 39.77472, 64.42861, "Uzbekistan"),
+        CityResponse("Qarshi", 38.86056, 65.78905, "Uzbekistan"),
+        CityResponse("Xiva", 41.38555, 60.36408, "Uzbekistan"),
+        CityResponse("Urganch", 41.55339, 60.62057, "Uzbekistan")
+    )
 
 }
