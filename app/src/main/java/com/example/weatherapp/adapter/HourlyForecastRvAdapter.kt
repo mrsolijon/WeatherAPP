@@ -7,7 +7,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.databinding.ItemHourlyBinding
 import com.example.weatherapp.model.HourlyForecastData
 
-class HourlyForecastRvAdapter (private val hourlylist: List<HourlyForecastData>): RecyclerView.Adapter<HourlyForecastRvAdapter.ViewHolder>(){
+class HourlyForecastRvAdapter (private val hourlyList: List<HourlyForecastData>): RecyclerView.Adapter<HourlyForecastRvAdapter.ViewHolder>(){
 
     inner class ViewHolder(private val binding: ItemHourlyBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -25,11 +25,11 @@ class HourlyForecastRvAdapter (private val hourlylist: List<HourlyForecastData>)
     }
 
     override fun getItemCount(): Int {
-        return hourlylist.size
+        return hourlyList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(hourlylist[position])
+        holder.onBind(hourlyList[position])
     }
 
     fun getIconForWeather(condition: String): Int {

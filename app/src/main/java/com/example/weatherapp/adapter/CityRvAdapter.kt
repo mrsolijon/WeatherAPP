@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.model.CityResponse
 
-class CityRvAdapter(private val citylist: List<CityResponse>,
+class CityRvAdapter(private val cityList: List<CityResponse>,
                     private val onCityClick: (CityResponse) -> Unit
 ) : RecyclerView.Adapter<CityRvAdapter.CityViewHolder>() {
 
@@ -25,7 +25,7 @@ class CityRvAdapter(private val citylist: List<CityResponse>,
     }
 
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
-        val city = citylist[position]
+        val city = cityList[position]
         holder.cityName.text = city.name
         holder.cityCountry.text = city.country
         holder.itemView.setOnClickListener {
@@ -33,7 +33,7 @@ class CityRvAdapter(private val citylist: List<CityResponse>,
         }
     }
 
-    override fun getItemCount(): Int = citylist.size
+    override fun getItemCount(): Int = cityList.size
 
 
 }

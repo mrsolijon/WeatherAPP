@@ -10,7 +10,7 @@ import com.example.weatherapp.model.DailyForecastData
 
 class DailyForecastRvAdapter (
 
-    private val dailylist: List<DailyForecastData>):
+    private val dailyList: List<DailyForecastData>):
     RecyclerView.Adapter<DailyForecastRvAdapter.ViewHolder>(){
 
     inner class ViewHolder(private val binding: ItemDailyBinding): RecyclerView.ViewHolder(binding.root){
@@ -35,11 +35,11 @@ class DailyForecastRvAdapter (
 
 
     override fun getItemCount(): Int {
-        return dailylist.size
+        return dailyList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(dailylist[position])
+        holder.onBind(dailyList[position])
     }
     fun getDayName(timestamp: Long): String {
         val sdf = java.text.SimpleDateFormat("EEEE", java.util.Locale.ENGLISH)
