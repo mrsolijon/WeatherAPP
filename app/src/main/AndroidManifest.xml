@@ -12,9 +12,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/icon"
+        android:icon="@mipmap/my_icon"
         android:label="Ob-Havo"
-        android:roundIcon="@mipmap/icon_round"
+        android:roundIcon="@mipmap/my_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherAPP"
         tools:targetApi="31">
