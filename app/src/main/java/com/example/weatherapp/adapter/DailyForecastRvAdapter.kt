@@ -9,6 +9,7 @@ import com.example.weatherapp.fragments.CurrentWeatherFragment.Companion.getWeat
 import com.example.weatherapp.model.DailyForecastData
 
 class DailyForecastRvAdapter (
+
     private val dailylist: List<DailyForecastData>):
     RecyclerView.Adapter<DailyForecastRvAdapter.ViewHolder>(){
 

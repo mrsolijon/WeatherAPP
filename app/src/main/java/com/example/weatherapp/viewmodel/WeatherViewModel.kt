@@ -26,6 +26,7 @@ data class WeatherData(
     val icon: String
 )
 val apiKey = BuildConfig.WEATHER_API_KEY
+//val apiKey = "42d2e302506a7c6c672dd39605397dee" siz uchun ustoz
 
 class WeatherViewModel(application: Application) : AndroidViewModel(application) {
 
