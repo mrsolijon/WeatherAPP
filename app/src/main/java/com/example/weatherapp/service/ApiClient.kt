@@ -18,9 +18,4 @@ object ApiClient {
                 retrofit.create(WeatherApiService::class.java)
     }
 
-    val cityApiService:CityApiService by lazy {
-            retrofit.create(CityApiService::class.java)
-    }
-
-
 }

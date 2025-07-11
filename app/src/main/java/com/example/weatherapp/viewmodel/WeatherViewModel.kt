@@ -31,7 +31,6 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
 
     private val weatherApiService = ApiClient.weatherApiService
 
-    // LiveData obyektlari
     private val _uiWeatherData = MutableLiveData<WeatherData>()
     val uiWeatherData: LiveData<WeatherData> get() = _uiWeatherData
 
@@ -42,7 +41,6 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
 
-    //   Berilgan koordinatalar uchun ob-havo ma'lumotlarini olish uchun.
 
     fun loadWeatherData(latitude: Double, longitude: Double,cityName: String? =null) {
         Log.d("Shaxar loadda", "Tanlandi: $latitude, $longitude")

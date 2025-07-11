@@ -8,7 +8,6 @@ import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weatherapp.model.CityResponse
 import com.google.android.gms.location.*
 import java.util.Locale
 
@@ -26,8 +25,6 @@ class LocationViewModel : ViewModel() {
 
     private val _locationData = MutableLiveData<LocationInfo>()
     val locationData: LiveData<LocationInfo> get() = _locationData
-    private val _citiesList = MutableLiveData<List<CityResponse>>()
-    val citiesList: LiveData<List<CityResponse>> get() = _citiesList
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 

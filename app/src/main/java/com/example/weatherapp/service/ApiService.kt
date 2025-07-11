@@ -17,11 +17,3 @@ interface WeatherApiService {
     ): WeatherResponse
 }
 
-interface CityApiService {
-    @GET("geo/1.0/direct")
-    suspend fun getCityCoordinates(
-        @Query("q") cityName: String?,
-        @Query("limit") limit: Int = 5,
-        @Query("appid") apiKey: String
-    ): List<CityResponse>
-}

@@ -22,7 +22,6 @@ class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {
     private lateinit var viewModel: LocationViewModel
     private lateinit var weatherViewModel: WeatherViewModel
     private lateinit var cityAdapter: CityRvAdapter
-//    val apiKey = BuildConfig.WEATHER_API_KEY
 
     private val filteredCityList = mutableListOf<CityResponse>()
 
