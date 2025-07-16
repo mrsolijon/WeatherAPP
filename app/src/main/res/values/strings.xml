@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">WeatherAPP</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="current_weather">Hozirgi ob-havo</string>
+    <string name="cloudy">Bulutli</string>
+    <string name="sun_clear_sky">Quyoshli Ochiq havo</string>
+    <string name="moon_clear_sky">Ochiq havo</string>
+    <string name="cloudy_sunny">Bulutli Quyoshli</string>
+    <string name="cloudy_moon">Buluti tun</string>
+    <string name="few_clouds">Biroz bulutli</string>
+    <string name="rain">Kuchli yomg\'ir</string>
+    <string name="rainy_sun">Yomg\'ir</string>
+    <string name="rainy_night">Yomg\'ir</string>
+    <string name="thunderstorm">Bo\'ron</string>
+    <string name="snow">Qor</string>
+    <string name="monday">Dushanba</string>
+    <string name="tuesday">Seshanba</string>
+    <string name="wednesday">Chorshanba</string>
+    <string name="thursday">Payshanba</string>
+    <string name="friday">Juma</string>
+    <string name="saturday">Shanba</string>
+    <string name="sunday">Yakshanba</string>
+    <string name="humidity">Namlik</string>
+    <string name="wind">Shamol</string>
+    <string name="forecast_7_days">7 kunlik bashorat</string>
+    <string name="noday">Kun aniqlanmadi</string>
+    <string name="loading">Yuklanmoqda</string>
+    <string name="not_found">Topilmadi</string>
+    <string name="unknown_location">Noma\'lum joy</string>
+    <string name="location_not_found">Lokatsiya topilmadi</string>
+    <string name="locating">Lokatsiya aniqlanmoqda</string>
+    <string name="unknown">Noma\'lum</string>
+    <string name="location_access_denied">Lokatsiyaga ruxsat berilmadi</string>
+    <string name="must_location">Lokatsiya kerak: iltimos ruxsat bering</string>
+    <string name="tomorrow">Ertaga</string>
+    <string name="forecast_24_hours">24 soatlik bashorat</string>
+    <string name="enter_city_name">Shaxar nomini kiriting</string>
+    <string name="cities">Shaxarlar</string>
+    <string name="select_lang">Tilni tanlang</string>
+</resources>

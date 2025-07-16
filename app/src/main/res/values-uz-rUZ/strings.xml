@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Об-Ҳаво</string>
+    <string name="current_weather">Ҳозирги об-ҳаво</string>
+    <string name="sun_clear_sky">Қуёшли очиқ ҳаво</string>
+    <string name="moon_clear_sky">Очиқ ҳаво</string>
+    <string name="cloudy">Булутли</string>
+    <string name="cloudy_sunny">Булутли қуёшли</string>
+    <string name="cloudy_moon">Булутли тун</string>
+    <string name="few_clouds">Бироз булутли</string>
+    <string name="rain">Кучли ёмғир</string>
+    <string name="rainy_sun">Ёмғир</string>
+    <string name="rainy_night">Ёмғир</string>
+    <string name="thunderstorm">Бўрон</string>
+    <string name="snow">Қор</string>
+
+    <string name="monday">Душанба</string>
+    <string name="tuesday">Сешанба</string>
+    <string name="wednesday">Чоршанба</string>
+    <string name="thursday">Пайшанба</string>
+    <string name="friday">Жума</string>
+    <string name="saturday">Шанба</string>
+    <string name="sunday">Якшанба</string>
+    <string name="noday">Кун аниқланмади</string>
+    <string name="tomorrow">Эртага</string>
+
+    <string name="humidity">Намлик</string>
+    <string name="wind">Шамол</string>
+    <string name="forecast_24_hours">24 соатлик башорат</string>
+    <string name="forecast_7_days">7 кунлик башорат</string>
+    <string name="loading">Юкланмоқда</string>
+    <string name="not_found">Топилмади</string>
+    <string name="unknown_location">Номаълум жой</string>
+    <string name="location_not_found">Локация топилмади</string>
+    <string name="locating">Локация аниқланмоқда</string>
+    <string name="unknown">Номаълум</string>
+    <string name="location_access_denied">Локацияга рухсат берилмади</string>
+    <string name="must_location">Локация керак: илтимос, рухсат беринг</string>
+    <string name="enter_city_name">Шаҳар номини киритинг</string>
+    <string name="cities">Шаҳарлар</string>
+    <string name="select_lang">Тилни танланг</string>
+</resources>

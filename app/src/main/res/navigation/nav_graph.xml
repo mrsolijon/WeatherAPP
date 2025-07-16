@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/currentWeatherFragment">
+    <action
+        android:id="@+id/action_global_currentWeatherFragment"
+        app:destination="@id/currentWeatherFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/currentWeatherFragment"
+        app:popUpToInclusive="true" />
+
+
+    <fragment
+        android:id="@+id/currentWeatherFragment"
+        android:name="uz.mrsolijon.weatherapp.fragments.CurrentWeatherFragment"
+        android:label="Current Weather" >
+        <action
+            android:id="@+id/action_currentWeatherFragment_to_dailyForecastFragment"
+            app:destination="@id/dailyForecastFragment" />
+        <action
+            android:id="@+id/action_currentWeatherFragment_to_addChangeCityFragment"
+            app:destination="@id/addChangeCityFragment" />
+        <action
+            android:id="@+id/action_currentWeatherFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dailyForecastFragment"
+        android:name="uz.mrsolijon.weatherapp.fragments.DailyForecastFragment"
+        android:label="5 Day Forecast" >
+        <action
+            android:id="@+id/action_dailyForecastFragment_to_currentWeatherFragment"
+            app:destination="@id/currentWeatherFragment" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/addChangeCityFragment"
+        android:name="uz.mrsolijon.weatherapp.fragments.AddChangeCityFragment"
+        android:label="AddChangeCityFragment">
+        <action
+            android:id="@+id/action_addChangeCityFragment_to_currentWeatherFragment"
+            app:destination="@id/currentWeatherFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="uz.mrsolijon.weatherapp.fragments.SettingsFragment"
+        android:label="Settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_currentWeatherFragment"
+            app:destination="@id/currentWeatherFragment" />
+
+    </fragment>
+
+</navigation>

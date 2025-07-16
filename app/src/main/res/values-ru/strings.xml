@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Погода</string>
+    <string name="current_weather">Текущая погода</string>
+    <string name="sun_clear_sky">Солнечно, ясно</string>
+    <string name="moon_clear_sky">Ясная ночь</string>
+    <string name="cloudy">Облачно</string>
+    <string name="cloudy_sunny">Облачно, солнечно</string>
+    <string name="cloudy_moon">Облачная ночь</string>
+    <string name="few_clouds">Малооблачно</string>
+    <string name="rain">Сильный дождь</string>
+    <string name="rainy_sun">Дождь</string>
+    <string name="rainy_night">Дождь</string>
+    <string name="thunderstorm">Гроза</string>
+    <string name="snow">Снег</string>
+
+    <string name="monday">Понедельник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Среда</string>
+    <string name="thursday">Четверг</string>
+    <string name="friday">Пятница</string>
+    <string name="saturday">Суббота</string>
+    <string name="sunday">Воскресенье</string>
+    <string name="noday">День не определён</string>
+    <string name="tomorrow">Завтра</string>
+
+    <string name="humidity">Влажность</string>
+    <string name="wind">Ветер</string>
+    <string name="forecast_24_hours">Прогноз на 24 часа</string>
+    <string name="forecast_7_days">Прогноз на 7 дней</string>
+
+    <string name="loading">Загрузка</string>
+    <string name="not_found">Не найдено</string>
+    <string name="unknown_location">Неизвестное место</string>
+    <string name="location_not_found">Местоположение не найдено</string>
+    <string name="locating">Определение местоположения</string>
+    <string name="unknown">Неизвестно</string>
+    <string name="location_access_denied">Доступ к местоположению запрещён</string>
+    <string name="must_location">Требуется местоположение: пожалуйста, разрешите</string>
+    <string name="enter_city_name">Введите название города</string>
+    <string name="cities">Города</string>
+    <string name="select_lang">Выберите язык</string>
+
+</resources>
