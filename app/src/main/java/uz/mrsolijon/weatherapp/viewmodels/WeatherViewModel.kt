@@ -16,11 +16,13 @@ import uz.mrsolijon.weatherapp.api.ApiClient
 import uz.mrsolijon.weatherapp.model.DailyForecastData
 import uz.mrsolijon.weatherapp.model.WeatherData
 import uz.mrsolijon.weatherapp.model.WeatherResponse
+import uz.mrsolijon.weatherapp.model.mapper.WeatherDataMapper
 
 class WeatherViewModel(application: Application) : AndroidViewModel(application) {
 
     val apiKey = BuildConfig.WEATHER_API_KEY
     private val weatherApiService = ApiClient.weatherApiService
+    private val weatherDataMapper = WeatherDataMapper(application)
 
     private val _uiWeatherData = MutableStateFlow(WeatherData())
     val uiWeatherData: StateFlow<WeatherData?> get() = _uiWeatherData.asStateFlow()
@@ -41,14 +43,16 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                 _isLoading.value = true
 
                 val response = weatherApiService.getWeather(latitude, longitude, apiKey)
-                val mappedData = mapResponseToUiData(response)
+                val mappedData = weatherDataMapper.mapResponseToUiData(response)
 
-                _uiWeatherData.value = mappedData.copy(cityName = cityName?:getApplication<Application>().getString(R.string.unknown))
+                _uiWeatherData.value = mappedData.copy(
+                    cityName = cityName ?: getApplication<Application>().getString(R.string.unknown)
+                )
                 _dailyForecastData.value = response.daily
 
             }
                 .catch { e ->
-                    _errorMessage.value = "Ob-havo ma'lumotlarini yuklashda xatolik"
+                    _errorMessage.value = e.message
                 }
                 .onCompletion {
                     _isLoading.value = false
@@ -57,21 +61,4 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
 
         }
     }
-
-
-    private fun mapResponseToUiData(response: WeatherResponse): WeatherData {
-        return WeatherData(
-            temperature = "${response.current.temp.toInt()}C°",
-            weatherStatus = response.current.weather.firstOrNull()?.description
-                ?: getApplication<Application>().getString(R.string.unknown),
-            humidity = "${response.current.humidity}%",
-            windSpeed = "${response.current.wind_speed} m/s",
-            maxTemp = "${response.daily.firstOrNull()?.temp?.max?.toInt()}",
-            minTemp = "${response.daily.firstOrNull()?.temp?.min?.toInt()}",
-            hourly = response.hourly,
-            daily = response.daily,
-            icon = response.current.weather.firstOrNull()?.icon ?: "01d"
-        )
-    }
-
 }

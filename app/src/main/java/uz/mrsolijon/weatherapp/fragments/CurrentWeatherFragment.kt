@@ -98,6 +98,7 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
             ) == PackageManager.PERMISSION_GRANTED -> {
                 locationViewModel.fetchLocation(requireContext())
             }
+
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
                 Toast.makeText(
                     requireContext(),
@@ -106,6 +107,7 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
                 ).show()
                 locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
+
             else -> {
                 locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
@@ -121,12 +123,18 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
                             info.isLoading -> {
                                 binding.currentCity.text = getString(R.string.loading)
                             }
+
                             info.error != null -> {
                                 binding.currentCity.text = info.error
                             }
+
                             info.latitude != null && info.longitude != null -> {
                                 binding.currentCity.text = info.city
-                                weatherViewModel.loadWeatherData(info.latitude, info.longitude, info.city)
+                                weatherViewModel.loadWeatherData(
+                                    info.latitude,
+                                    info.longitude,
+                                    info.city
+                                )
                             }
                         }
                     }
@@ -141,7 +149,6 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
             }
         }
     }
-
 
 
     private fun updateUI(weather: WeatherData) {

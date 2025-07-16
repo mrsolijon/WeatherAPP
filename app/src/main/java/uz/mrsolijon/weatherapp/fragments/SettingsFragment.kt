@@ -43,7 +43,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 selectedLanguage(LanguageEnum.RU)
             }
             ruzBtn.setOnClickListener {
-                selectedLanguage(LanguageEnum.UZ_rUZ,"uz")
+                selectedLanguage(LanguageEnum.UZ_rUZ, "uz")
             }
 
         }
@@ -77,6 +77,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             "ru" -> {
                 return LanguageEnum.RU
             }
+
             "uz_CR" -> {
                 return LanguageEnum.UZ_rUZ
             }

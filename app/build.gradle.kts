@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
     implementation(libs.play.services.location)
 
     implementation(libs.retrofit)
@@ -67,6 +68,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.room.compiler)
     implementation(libs.room.ktx)
+
     implementation(libs.lingver)
 
     testImplementation(libs.junit)
