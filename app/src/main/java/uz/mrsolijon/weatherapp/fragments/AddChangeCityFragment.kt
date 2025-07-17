@@ -1,26 +1,20 @@
 package uz.mrsolijon.weatherapp.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import uz.mrsolijon.weatherapp.R
 import uz.mrsolijon.weatherapp.adapter.CityRvAdapter
 import uz.mrsolijon.weatherapp.databinding.FragmentAddChangeCityBinding
 import uz.mrsolijon.weatherapp.model.CityResponse
+import uz.mrsolijon.weatherapp.model.WeatherViewModelFactory
 import uz.mrsolijon.weatherapp.viewmodels.LocationViewModel
 import uz.mrsolijon.weatherapp.viewmodels.WeatherViewModel
+
 import java.util.Locale
 
 class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {
@@ -69,7 +63,9 @@ class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {
         _binding = FragmentAddChangeCityBinding.bind(view)
 
         locationViewModel = ViewModelProvider(requireActivity())[LocationViewModel::class.java]
-        weatherViewModel = ViewModelProvider(requireActivity())[WeatherViewModel::class.java]
+        val factory = WeatherViewModelFactory(requireActivity().application)
+        weatherViewModel = ViewModelProvider(requireActivity(), factory)[WeatherViewModel::class.java]
+
 
         setupRecyclerView()
         setupSearchView()
@@ -78,15 +74,15 @@ class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {
             findNavController().popBackStack()
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                locationViewModel.locationData.collectLatest { locationInfo ->
-                    // Lokatsiya o'zgarganda bu yerda ishlarni bajaring
-                    // Masalan, tanlangan shaharga qarab UI ni yangilash
-                    Log.d("AddChangeCityFragment", "Location updated: ${locationInfo.city}")
-                }
-            }
-        }
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                locationViewModel.locationData.collectLatest { locationInfo ->
+//                    // Lokatsiya o'zgarganda bu yerda ishlarni bajaring
+//                    // Masalan, tanlangan shaharga qarab UI ni yangilash
+//                    Log.d("AddChangeCityFragment", "Location updated: ${locationInfo.city}")
+//                }
+//            }
+//        }
     }
 
     private fun setupRecyclerView() {

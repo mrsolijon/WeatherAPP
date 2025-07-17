@@ -37,4 +37,6 @@
     <string name="enter_city_name">Shaxar nomini kiriting</string>
     <string name="cities">Shaxarlar</string>
     <string name="select_lang">Tilni tanlang</string>
+    <string name="feels_like">His qilasiz</string>
+    <string name="pressure">Bosim</string>
 </resources>

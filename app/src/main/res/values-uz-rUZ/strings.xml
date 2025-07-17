@@ -39,4 +39,6 @@
     <string name="enter_city_name">Шаҳар номини киритинг</string>
     <string name="cities">Шаҳарлар</string>
     <string name="select_lang">Тилни танланг</string>
+    <string name="feels_like">Ҳис қиласиз</string>
+    <string name="pressure">Босим</string>
 </resources>

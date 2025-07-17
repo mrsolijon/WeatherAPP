@@ -1,7 +1,7 @@
 package uz.mrsolijon.weatherapp.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.util.Log
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,18 +11,15 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import uz.mrsolijon.weatherapp.BuildConfig
-import uz.mrsolijon.weatherapp.R
 import uz.mrsolijon.weatherapp.api.ApiClient
 import uz.mrsolijon.weatherapp.model.DailyForecastData
 import uz.mrsolijon.weatherapp.model.WeatherData
-import uz.mrsolijon.weatherapp.model.WeatherResponse
 import uz.mrsolijon.weatherapp.model.mapper.WeatherDataMapper
 
-class WeatherViewModel(application: Application) : AndroidViewModel(application) {
+class WeatherViewModel(private val weatherDataMapper: WeatherDataMapper) :ViewModel() {
 
     val apiKey = BuildConfig.WEATHER_API_KEY
     private val weatherApiService = ApiClient.weatherApiService
-    private val weatherDataMapper = WeatherDataMapper(application)
 
     private val _uiWeatherData = MutableStateFlow(WeatherData())
     val uiWeatherData: StateFlow<WeatherData?> get() = _uiWeatherData.asStateFlow()
@@ -46,9 +43,10 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                 val mappedData = weatherDataMapper.mapResponseToUiData(response)
 
                 _uiWeatherData.value = mappedData.copy(
-                    cityName = cityName ?: getApplication<Application>().getString(R.string.unknown)
+                    cityName = cityName?:"Noma'lum"
                 )
                 _dailyForecastData.value = response.daily
+                Log.d("dailyForecastData", "loadWeatherData: ${dailyForecastData.value}")
 
             }
                 .catch { e ->
