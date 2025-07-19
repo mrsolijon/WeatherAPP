@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import uz.mrsolijon.weatherapp.R
 import uz.mrsolijon.weatherapp.databinding.ItemHourlyBinding
 import uz.mrsolijon.weatherapp.model.HourlyForecastData
+import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatusIcon
 import java.text.DateFormat
 import java.util.Date
 
@@ -41,17 +42,15 @@ class HourlyForecastRvAdapter(private val hourlyList: List<HourlyForecastData>) 
             binding.hourlyForecastMainLayout.setBackgroundResource(R.drawable.background_forecast)
             binding.forecastHour.text =
                 DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(item.dt * 1000))
-            binding.hourWeatherIcon.setImageResource(getIconForWeather(item.weather[0].icon))
+            binding.hourWeatherIcon.setImageResource(getWeatherStatusIcon(item.weather[0].icon))
             binding.hourWeatherTemp.text = "${item.temp.toInt()}°"
             if (item.isExpanded) {
+                binding.isExpandedDetailsLayout.visibility = View.VISIBLE
                 binding.hourlyForecastMainLayout.setBackgroundResource(R.drawable.background_forecast_expanded)
                 binding.isNotExpandedDetailsLayout.visibility = View.GONE
-                binding.isExpandedDetailsLayout.visibility = View.VISIBLE
-                // Qo'shimcha ma'lumotlarni o'rnatish
                 binding.expandedForecastHour.text =
                     DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(item.dt * 1000))
                 binding.expandedHourWeatherFeelTemp.text = "${item.feels_like.toInt()}°"
-//                binding.expandedHourWeatherPressure.text = "${item.pressure} hPa"
                 binding.expandedHourWeatherHumidity.text = "${item.humidity}%"
                 binding.expandedHourWeatherWindSpeed.text = "${item.wind_speed} m/s"
                 binding.expandedHourWeatherPressure.text = "${item.pressure} hPa"
@@ -76,24 +75,5 @@ class HourlyForecastRvAdapter(private val hourlyList: List<HourlyForecastData>) 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(hourlyList[position])
-    }
-
-    fun getIconForWeather(condition: String): Int {
-        return when (condition.lowercase()) {
-            "01d" -> R.drawable.sun
-            "01n" -> R.drawable.moon
-            "02d" -> R.drawable.cloudy_sunny
-            "02n" -> R.drawable.cloudy_moon
-            "03d", "03n" -> R.drawable.cloud
-            "04d", "04n" -> R.drawable.cloudy
-            "09d", "09n" -> R.drawable.rain
-            "10d" -> R.drawable.rainy_sun
-            "10n" -> R.drawable.rainy_night
-            "11d", "11n" -> R.drawable.thunderstorm
-            "13d", "13n" -> R.drawable.snow
-            "50d", "50n" -> R.drawable.mist
-            else -> R.drawable.sun
-        }
-
     }
 }

@@ -16,7 +16,7 @@ import uz.mrsolijon.weatherapp.model.DailyForecastData
 import uz.mrsolijon.weatherapp.model.WeatherData
 import uz.mrsolijon.weatherapp.model.mapper.WeatherDataMapper
 
-class WeatherViewModel(private val weatherDataMapper: WeatherDataMapper) :ViewModel() {
+class WeatherViewModel(private val weatherDataMapper: WeatherDataMapper) : ViewModel() {
 
     val apiKey = BuildConfig.WEATHER_API_KEY
     private val weatherApiService = ApiClient.weatherApiService
@@ -43,7 +43,7 @@ class WeatherViewModel(private val weatherDataMapper: WeatherDataMapper) :ViewMo
                 val mappedData = weatherDataMapper.mapResponseToUiData(response)
 
                 _uiWeatherData.value = mappedData.copy(
-                    cityName = cityName?:"Noma'lum"
+                    cityName = cityName ?: "Noma'lum"
                 )
                 _dailyForecastData.value = response.daily
                 Log.d("dailyForecastData", "loadWeatherData: ${dailyForecastData.value}")

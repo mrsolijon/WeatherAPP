@@ -22,6 +22,7 @@
     <string name="saturday">Shanba</string>
     <string name="sunday">Yakshanba</string>
     <string name="noday">Kun aniqlanmadi</string>
+    <string name="today">Bugun</string>
     <string name="tomorrow">Ertaga</string>
 
     <string name="humidity">Namlik</string>
@@ -41,5 +42,11 @@
     <string name="select_lang">Tilni tanlang</string>
     <string name="feels_like">His qilasiz</string>
     <string name="pressure">Bosim</string>
+    <string name="sunrise">Quyosh chiqadi</string>
+    <string name="sunset">Quyosh botadi</string>
+    <string name="night">Tun</string>
+    <string name="morn">Tong</string>
+    <string name="day">Kun</string>
+    <string name="eve">Kech</string>
 
 </resources>

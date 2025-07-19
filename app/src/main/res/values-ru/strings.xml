@@ -22,6 +22,7 @@
     <string name="saturday">Суббота</string>
     <string name="sunday">Воскресенье</string>
     <string name="noday">День не определён</string>
+    <string name="today">Сегодня</string>
     <string name="tomorrow">Завтра</string>
 
     <string name="humidity">Влажность</string>
@@ -42,5 +43,11 @@
     <string name="select_lang">Выберите язык</string>
     <string name="feels_like">По ощущениям</string>
     <string name="pressure">Давление</string>
+    <string name="sunrise">Восход</string>
+    <string name="sunset">"Закат "</string>
+    <string name="night">Ночь</string>
+    <string name="morn">Утро</string>
+    <string name="day">День</string>
+    <string name="eve">Вечер</string>
 
 </resources>

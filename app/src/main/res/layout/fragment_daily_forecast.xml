@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgroundn"
     android:orientation="vertical"
+    android:paddingTop="14dp"
     tools:context=".fragments.DailyForecastFragment">
 
     <LinearLayout
@@ -22,154 +23,12 @@
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/background_2"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <ImageView
-                android:id="@+id/tomorrow_status_icon"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:padding="8dp"
-                android:src="@drawable/moon" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="4dp"
-                    android:text="@string/tomorrow"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    />
-
-                <TextView
-                    android:id="@+id/tommorrow_temp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="4dp"
-                    android:text="30°"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="40sp" />
-
-                <TextView
-                    android:id="@+id/tomorrow_status_weather"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autoSizeMaxTextSize="20sp"
-                    android:autoSizeMinTextSize="18sp"
-                    android:paddingTop="4dp"
-                    android:text="@string/sun_clear_sky"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="16dp"
-            android:layout_weight="2"
-            android:orientation="horizontal"
-            android:padding="6dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/humidity" />
-
-                <TextView
-                    android:id="@+id/tomorrow_humidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="4dp"
-                    android:text="20%"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="4dp"
-                    android:text="@string/humidity"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/wind" />
-
-
-                <TextView
-                    android:id="@+id/tomorrow_wind"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="4dp"
-                    android:text="2 m/s"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="4dp"
-                    android:text="@string/wind"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/daily_forecast_RV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_margin="4dp"
+        android:layout_marginTop="4dp"
         tools:listitem="@layout/item_daily" />
 
 </LinearLayout>

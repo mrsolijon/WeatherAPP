@@ -13,8 +13,8 @@
         android:id="@+id/isNotExpanded_details_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="center"
+        android:orientation="vertical"
         android:visibility="visible">
 
         <TextView
@@ -90,8 +90,8 @@
             android:id="@+id/expanded_hour_weather_humidity_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
             android:text="@string/humidity"
             android:textColor="@color/light_blue"
             android:textSize="14sp"

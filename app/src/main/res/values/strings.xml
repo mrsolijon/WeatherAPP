@@ -32,6 +32,7 @@
     <string name="unknown">Noma\'lum</string>
     <string name="location_access_denied">Lokatsiyaga ruxsat berilmadi</string>
     <string name="must_location">Lokatsiya kerak: iltimos ruxsat bering</string>
+    <string name="today">Bugun</string>
     <string name="tomorrow">Ertaga</string>
     <string name="forecast_24_hours">24 soatlik bashorat</string>
     <string name="enter_city_name">Shaxar nomini kiriting</string>
@@ -39,4 +40,10 @@
     <string name="select_lang">Tilni tanlang</string>
     <string name="feels_like">His qilasiz</string>
     <string name="pressure">Bosim</string>
+    <string name="sunrise">Quyosh chiqadi</string>
+    <string name="sunset">Quyosh botadi</string>
+    <string name="night">Tun</string>
+    <string name="morn">Tong</string>
+    <string name="day">Kun</string>
+    <string name="eve">Kech</string>
 </resources>

@@ -1,9 +1,9 @@
 package uz.mrsolijon.weatherapp.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +14,6 @@ import uz.mrsolijon.weatherapp.model.CityResponse
 import uz.mrsolijon.weatherapp.model.WeatherViewModelFactory
 import uz.mrsolijon.weatherapp.viewmodels.LocationViewModel
 import uz.mrsolijon.weatherapp.viewmodels.WeatherViewModel
-
 import java.util.Locale
 
 class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {
@@ -64,7 +63,8 @@ class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {
 
         locationViewModel = ViewModelProvider(requireActivity())[LocationViewModel::class.java]
         val factory = WeatherViewModelFactory(requireActivity().application)
-        weatherViewModel = ViewModelProvider(requireActivity(), factory)[WeatherViewModel::class.java]
+        weatherViewModel =
+            ViewModelProvider(requireActivity(), factory)[WeatherViewModel::class.java]
 
 
         setupRecyclerView()

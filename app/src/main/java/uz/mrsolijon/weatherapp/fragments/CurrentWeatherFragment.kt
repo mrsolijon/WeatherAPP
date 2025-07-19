@@ -1,7 +1,6 @@
 package uz.mrsolijon.weatherapp.fragments
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -23,6 +22,8 @@ import uz.mrsolijon.weatherapp.adapter.HourlyForecastRvAdapter
 import uz.mrsolijon.weatherapp.databinding.FragmentCurrentWeatherBinding
 import uz.mrsolijon.weatherapp.model.WeatherData
 import uz.mrsolijon.weatherapp.model.WeatherViewModelFactory
+import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatus
+import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatusIcon
 import uz.mrsolijon.weatherapp.viewmodels.LocationViewModel
 import uz.mrsolijon.weatherapp.viewmodels.WeatherViewModel
 import kotlin.getValue
@@ -154,16 +155,22 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
 
 
     private fun updateUI(weather: WeatherData) {
-        val (iconRes, status) = getWeatherUI(requireContext(), weather.icon.toString())
-        binding.statusIcon.setImageResource(iconRes)
-        binding.currentTemp.text = weather.temperature
-        binding.currentHumidity.text = weather.humidity
-        binding.currentWind.text = weather.windSpeed
-        binding.statusWeather.text = status
+        val iconRes = getWeatherStatusIcon(weather.icon)
+        val status = getWeatherStatus(requireContext(), weather.icon)
         val hourlyAdapter = HourlyForecastRvAdapter(weather.hourly.take(24))
-        binding.hourlyForecastRv.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.hourlyForecastRv.adapter = hourlyAdapter
+
+        binding.apply {
+            statusIcon.setImageResource(iconRes)
+            currentTemp.text = weather.temperature
+            currentHumidity.text = weather.humidity
+            currentWind.text = weather.windSpeed
+            statusWeather.text = status
+            hourlyForecastRv.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            hourlyForecastRv.adapter = hourlyAdapter
+        }
+
+
     }
 
     override fun onDestroyView() {
@@ -171,22 +178,4 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
         _binding = null
     }
 
-    companion object {
-        fun getWeatherUI(context: Context, icon: String): Pair<Int, String> {
-            return when (icon.lowercase()) {
-                "01d" -> R.drawable.sun to context.getString(R.string.sun_clear_sky)
-                "01n" -> R.drawable.moon to context.getString(R.string.moon_clear_sky)
-                "02d" -> R.drawable.cloudy_sunny to context.getString(R.string.cloudy_sunny)
-                "02n" -> R.drawable.cloudy_moon to context.getString(R.string.cloudy_moon)
-                "03d", "03n" -> R.drawable.cloud to context.getString(R.string.few_clouds)
-                "04d", "04n" -> R.drawable.cloudy to context.getString(R.string.cloudy)
-                "09d", "09n" -> R.drawable.rain to context.getString(R.string.rain)
-                "10d" -> R.drawable.rainy_sun to context.getString(R.string.rainy_sun)
-                "10n" -> R.drawable.rainy_night to context.getString(R.string.rainy_night)
-                "11d", "11n" -> R.drawable.thunderstorm to context.getString(R.string.thunderstorm)
-                "13d", "13n" -> R.drawable.snow to context.getString(R.string.snow)
-                else -> R.drawable.cloudy to context.getString(R.string.cloudy)
-            }
-        }
-    }
 }

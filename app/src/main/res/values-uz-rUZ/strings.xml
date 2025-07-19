@@ -22,6 +22,7 @@
     <string name="saturday">Шанба</string>
     <string name="sunday">Якшанба</string>
     <string name="noday">Кун аниқланмади</string>
+    <string name="today">Бугун</string>
     <string name="tomorrow">Эртага</string>
 
     <string name="humidity">Намлик</string>
@@ -41,4 +42,10 @@
     <string name="select_lang">Тилни танланг</string>
     <string name="feels_like">Ҳис қиласиз</string>
     <string name="pressure">Босим</string>
+    <string name="sunrise">Қуёш чиқади</string>
+    <string name="sunset">Қуёш ботади</string>
+    <string name="night">Тун</string>
+    <string name="morn">Тонг</string>
+    <string name="day">Кун</string>
+    <string name="eve">Кеч</string>
 </resources>

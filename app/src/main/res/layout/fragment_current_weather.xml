@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/backgroundn"
     android:fitsSystemWindows="true"
     tools:context=".fragments.CurrentWeatherFragment">
@@ -22,11 +22,10 @@
             android:id="@+id/refresh_location"
             android:layout_width="32dp"
             android:layout_height="match_parent"
-            android:padding="4dp"
-            android:src="@drawable/outline_add_location_24"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_gravity="center"
-            />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="4dp"
+            android:src="@drawable/outline_add_location_24" />
 
         <TextView
             android:id="@+id/current_city"
@@ -36,41 +35,37 @@
             android:padding="6dp"
             android:text="Toshkent"
             android:textColor="@color/white"
-            android:textSize="24sp"
-            />
+            android:textSize="24sp" />
+
         <ImageButton
             android:id="@+id/refresh_button"
             android:layout_width="32dp"
             android:layout_height="match_parent"
-            android:padding="4dp"
-            android:src="@drawable/refresh_button"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_gravity="center"
-            />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="4dp"
+            android:src="@drawable/refresh_button" />
 
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/add_city_button"
             android:layout_width="32dp"
             android:layout_height="match_parent"
-            android:paddingEnd="4dp"
-            android:src="@drawable/baseline_add_24"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_gravity="center"
-            />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingEnd="4dp"
+            android:src="@drawable/baseline_add_24" />
 
         <ImageButton
             android:id="@+id/settings_button"
             android:layout_width="32dp"
             android:layout_height="match_parent"
-            android:src="@drawable/baseline_settings_24"
             android:background="?attr/selectableItemBackgroundBorderless"
-            />
+            android:src="@drawable/baseline_settings_24" />
 
     </LinearLayout>
 
@@ -78,21 +73,20 @@
         android:id="@+id/main_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_2"
         android:layout_margin="16dp"
+        android:background="@drawable/background_2"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_layout"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_layout">
+
         <ImageView
             android:id="@+id/status_icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:background="@drawable/background_blur"
-            android:src="@drawable/moon"
-            />
+            android:padding="8dp"
+            android:src="@drawable/moon" />
 
         <TextView
             android:id="@+id/status_weather"
@@ -114,15 +108,14 @@
             android:text="0°"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="40sp"
-            />
+            android:textSize="40sp" />
 
         <LinearLayout
             android:id="@+id/weather_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_margin="8dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/current_temp">
@@ -137,8 +130,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/humidity"
-                    />
+                    android:src="@drawable/humidity" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -147,8 +139,7 @@
                     android:text="@string/humidity"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/current_humidity"
@@ -158,8 +149,7 @@
                     android:text="0%"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -172,8 +162,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/wind"
-                    />
+                    android:src="@drawable/wind" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -182,8 +171,7 @@
                     android:text="@string/wind"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/current_wind"
@@ -193,14 +181,12 @@
                     android:text="0 m/s"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    />
+                    android:textSize="20sp" />
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
 
 
     <TextView
@@ -214,8 +200,7 @@
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_details"
-        />
+        app:layout_constraintTop_toBottomOf="@id/main_details" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/hourly_forecast_Rv"
@@ -234,14 +219,13 @@
         android:id="@+id/btn_daily_forecast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/forecast_7_days"
         android:layout_margin="24dp"
+        android:text="@string/forecast_7_days"
         android:textColor="@color/orange"
         android:textSize="20sp"
         app:backgroundTint="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hourly_forecast_Rv"
-        />
+        app:layout_constraintTop_toBottomOf="@id/hourly_forecast_Rv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,10 @@
 package uz.mrsolijon.weatherapp.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -30,7 +29,8 @@ class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
         _binding = FragmentDailyForecastBinding.bind(view)
 
         val factory = WeatherViewModelFactory(requireActivity().application)
-        weatherViewModel = ViewModelProvider(requireActivity(), factory)[WeatherViewModel::class.java]
+        weatherViewModel =
+            ViewModelProvider(requireActivity(), factory)[WeatherViewModel::class.java]
 
 
         setupListeners()
@@ -41,24 +41,14 @@ class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
 
     private fun observeDailyForecastFlow() {
         lifecycleScope.launch {
-            Log.d("DailyForecastFragment", "observeDailyForecastFlow:${weatherViewModel.dailyForecastData.value}")
+            Log.d(
+                "DailyForecastFragment",
+                "observeDailyForecastFlow:${weatherViewModel.dailyForecastData.value}"
+            )
             weatherViewModel.dailyForecastData.collectLatest { dailyList ->
                 if (dailyList.isNotEmpty()) {
-                    val dailyAdapter =
-                        DailyForecastRvAdapter(requireContext(), dailyList.drop(2).take(6))
-                    val (iconRes, status) = CurrentWeatherFragment.getWeatherUI(
-                        requireContext(),
-                        dailyList[1].weather[0].icon
-                    )
+                    val dailyAdapter = DailyForecastRvAdapter(requireContext(), dailyList.take(7))
                     binding.dailyForecastRV.layoutManager = LinearLayoutManager(context)
-                    binding.tomorrowStatusIcon.setImageResource(iconRes)
-                    binding.tomorrowStatusWeather.text = status
-                    @SuppressLint("SetTextI18n")
-                    binding.tommorrowTemp.text = "${dailyList[1].temp.day.toInt()}°"
-                    @SuppressLint("SetTextI18n")
-                    binding.tomorrowHumidity.text = "${dailyList[1].humidity.toInt()} %"
-                    @SuppressLint("SetTextI18n")
-                    binding.tomorrowWind.text = "${dailyList[1].wind_speed} m/s"
                     binding.dailyForecastRV.adapter = dailyAdapter
                 } else {
                     Toast.makeText(
@@ -81,7 +71,7 @@ class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
 
     }
 
-    fun setupListeners(){
+    fun setupListeners() {
         binding.dailyForecastBackBtn.setOnClickListener {
             findNavController().popBackStack()
         }

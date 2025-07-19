@@ -8,5 +8,5 @@ data class HourlyForecastData(
     val humidity: Float,
     val wind_speed: Float,
     val pressure: Float,
-    var isExpanded : Boolean = false
+    var isExpanded: Boolean = false
 )
