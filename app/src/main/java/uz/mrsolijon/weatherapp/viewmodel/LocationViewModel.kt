@@ -1,4 +1,4 @@
-package uz.mrsolijon.weatherapp.viewmodels
+package uz.mrsolijon.weatherapp.viewmodel
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,7 +15,7 @@ import com.google.android.gms.location.Priority
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import uz.mrsolijon.weatherapp.R
-import uz.mrsolijon.weatherapp.model.LocationInfo
+import uz.mrsolijon.weatherapp.data.remote.model.LocationInfo
 import java.util.Locale
 
 @Suppress("DEPRECATION")

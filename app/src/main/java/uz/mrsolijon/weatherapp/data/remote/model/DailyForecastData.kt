@@ -1,4 +1,4 @@
-package uz.mrsolijon.weatherapp.model
+package uz.mrsolijon.weatherapp.data.remote.model
 
 data class DailyForecastData(
     val dt: Long,

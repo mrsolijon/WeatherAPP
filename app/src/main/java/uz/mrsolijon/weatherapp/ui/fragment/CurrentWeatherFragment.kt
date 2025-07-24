@@ -1,4 +1,4 @@
-package uz.mrsolijon.weatherapp.fragments
+package uz.mrsolijon.weatherapp.ui.fragment
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -18,14 +18,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import uz.mrsolijon.weatherapp.R
-import uz.mrsolijon.weatherapp.adapter.HourlyForecastRvAdapter
+import uz.mrsolijon.weatherapp.ui.adapter.HourlyForecastRvAdapter
 import uz.mrsolijon.weatherapp.databinding.FragmentCurrentWeatherBinding
-import uz.mrsolijon.weatherapp.model.WeatherData
-import uz.mrsolijon.weatherapp.model.WeatherViewModelFactory
+import uz.mrsolijon.weatherapp.data.remote.model.WeatherData
+import uz.mrsolijon.weatherapp.data.remote.model.WeatherViewModelFactory
 import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatus
 import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatusIcon
-import uz.mrsolijon.weatherapp.viewmodels.LocationViewModel
-import uz.mrsolijon.weatherapp.viewmodels.WeatherViewModel
+import uz.mrsolijon.weatherapp.viewmodel.LocationViewModel
+import uz.mrsolijon.weatherapp.viewmodel.WeatherViewModel
 import kotlin.getValue
 
 class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {

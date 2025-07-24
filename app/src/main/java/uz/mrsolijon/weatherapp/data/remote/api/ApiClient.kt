@@ -1,4 +1,4 @@
-package uz.mrsolijon.weatherapp.api
+package uz.mrsolijon.weatherapp.data.remote.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

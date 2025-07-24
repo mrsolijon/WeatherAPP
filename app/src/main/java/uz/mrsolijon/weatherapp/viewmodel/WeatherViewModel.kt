@@ -1,4 +1,4 @@
-package uz.mrsolijon.weatherapp.viewmodels
+package uz.mrsolijon.weatherapp.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import uz.mrsolijon.weatherapp.BuildConfig
-import uz.mrsolijon.weatherapp.api.ApiClient
-import uz.mrsolijon.weatherapp.model.DailyForecastData
-import uz.mrsolijon.weatherapp.model.WeatherData
-import uz.mrsolijon.weatherapp.model.mapper.WeatherDataMapper
+import uz.mrsolijon.weatherapp.data.remote.api.ApiClient
+import uz.mrsolijon.weatherapp.data.remote.model.DailyForecastData
+import uz.mrsolijon.weatherapp.data.remote.model.WeatherData
+import uz.mrsolijon.weatherapp.data.remote.model.mapper.WeatherDataMapper
 
 class WeatherViewModel(private val weatherDataMapper: WeatherDataMapper) : ViewModel() {
 

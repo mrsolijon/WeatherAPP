@@ -1,9 +1,9 @@
-package uz.mrsolijon.weatherapp.model.mapper
+package uz.mrsolijon.weatherapp.data.remote.model.mapper
 
 import android.app.Application
 import uz.mrsolijon.weatherapp.R
-import uz.mrsolijon.weatherapp.model.WeatherData
-import uz.mrsolijon.weatherapp.model.WeatherResponse
+import uz.mrsolijon.weatherapp.data.remote.model.WeatherData
+import uz.mrsolijon.weatherapp.data.remote.model.WeatherResponse
 
 class WeatherDataMapper(private val application: Application) {
     fun mapResponseToUiData(response: WeatherResponse): WeatherData {

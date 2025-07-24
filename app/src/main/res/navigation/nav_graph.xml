@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/currentWeatherFragment"
-        android:name="uz.mrsolijon.weatherapp.fragments.CurrentWeatherFragment"
+        android:name="uz.mrsolijon.weatherapp.ui.fragment.CurrentWeatherFragment"
         android:label="Current Weather" >
         <action
             android:id="@+id/action_currentWeatherFragment_to_dailyForecastFragment"
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/dailyForecastFragment"
-        android:name="uz.mrsolijon.weatherapp.fragments.DailyForecastFragment"
+        android:name="uz.mrsolijon.weatherapp.ui.fragment.DailyForecastFragment"
         android:label="5 Day Forecast" >
         <action
             android:id="@+id/action_dailyForecastFragment_to_currentWeatherFragment"
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/addChangeCityFragment"
-        android:name="uz.mrsolijon.weatherapp.fragments.AddChangeCityFragment"
+        android:name="uz.mrsolijon.weatherapp.ui.fragment.AddChangeCityFragment"
         android:label="AddChangeCityFragment">
         <action
             android:id="@+id/action_addChangeCityFragment_to_currentWeatherFragment"
@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="uz.mrsolijon.weatherapp.fragments.SettingsFragment"
+        android:name="uz.mrsolijon.weatherapp.ui.fragment.SettingsFragment"
         android:label="Settings">
         <action
             android:id="@+id/action_settingsFragment_to_currentWeatherFragment"

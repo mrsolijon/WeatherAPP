@@ -1,4 +1,4 @@
-package uz.mrsolijon.weatherapp.fragments
+package uz.mrsolijon.weatherapp.ui.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -8,12 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.mrsolijon.weatherapp.R
-import uz.mrsolijon.weatherapp.adapter.CityRvAdapter
+import uz.mrsolijon.weatherapp.ui.adapter.CityRvAdapter
 import uz.mrsolijon.weatherapp.databinding.FragmentAddChangeCityBinding
-import uz.mrsolijon.weatherapp.model.CityResponse
-import uz.mrsolijon.weatherapp.model.WeatherViewModelFactory
-import uz.mrsolijon.weatherapp.viewmodels.LocationViewModel
-import uz.mrsolijon.weatherapp.viewmodels.WeatherViewModel
+import uz.mrsolijon.weatherapp.data.remote.model.CityResponse
+import uz.mrsolijon.weatherapp.data.remote.model.WeatherViewModelFactory
+import uz.mrsolijon.weatherapp.viewmodel.LocationViewModel
+import uz.mrsolijon.weatherapp.viewmodel.WeatherViewModel
 import java.util.Locale
 
 class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {

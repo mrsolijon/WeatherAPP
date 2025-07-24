@@ -1,17 +1,15 @@
-package uz.mrsolijon.weatherapp.fragments
+package uz.mrsolijon.weatherapp.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.yariksoffice.lingver.Lingver
 import uz.mrsolijon.weatherapp.R
 import uz.mrsolijon.weatherapp.databinding.FragmentSettingsBinding
-import uz.mrsolijon.weatherapp.language.LanguageEnum
+import uz.mrsolijon.weatherapp.ui.language.LanguageEnum
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 

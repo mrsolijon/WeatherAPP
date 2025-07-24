@@ -1,4 +1,4 @@
-package uz.mrsolijon.weatherapp.adapter
+package uz.mrsolijon.weatherapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.mrsolijon.weatherapp.R
 import uz.mrsolijon.weatherapp.databinding.ItemHourlyBinding
-import uz.mrsolijon.weatherapp.model.HourlyForecastData
+import uz.mrsolijon.weatherapp.data.remote.model.HourlyForecastData
 import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatusIcon
 import java.text.DateFormat
 import java.util.Date

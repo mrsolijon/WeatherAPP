@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgroundn"
     android:fitsSystemWindows="true"
-    tools:context=".fragments.CurrentWeatherFragment">
+    tools:context=".ui.fragment.CurrentWeatherFragment">
 
     <LinearLayout
         android:id="@+id/header_layout"

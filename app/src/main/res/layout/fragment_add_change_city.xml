@@ -7,7 +7,7 @@
     android:background="@drawable/backgroundn"
     android:orientation="vertical"
     android:paddingTop="14dp"
-    tools:context=".fragments.AddChangeCityFragment">
+    tools:context=".ui.fragment.AddChangeCityFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

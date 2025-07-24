@@ -1,17 +1,19 @@
-package uz.mrsolijon.weatherapp.adapter
+package uz.mrsolijon.weatherapp.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.mrsolijon.weatherapp.R
 import uz.mrsolijon.weatherapp.databinding.ItemDailyBinding
-import uz.mrsolijon.weatherapp.model.DailyForecastData
+import uz.mrsolijon.weatherapp.data.remote.model.DailyForecastData
 import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatus
 import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatusIcon
 import java.text.DateFormat
 import java.util.Date
+import java.util.Locale
 
 class DailyForecastRvAdapter(
     private val context: Context, private val dailyList: List<DailyForecastData>
@@ -53,20 +55,20 @@ class DailyForecastRvAdapter(
             val status = getWeatherStatus(context, item.weather[0].icon)
             val dayName = getDayName(context, item.dt, adapterPosition)
             if (!item.isExpanded) {
-                binding.isNotExpandedDailyDetailsLayout.visibility = android.view.View.VISIBLE
+                binding.isNotExpandedDailyDetailsLayout.visibility = View.VISIBLE
                 binding.apply {
                     forecastDay.text = dayName
                     dayWeatherIcon.setImageResource(iconRes)
                     dayWeatherTemp.text = "${item.temp.day.toInt()}°"
                     dayWeatherStatus.text = status
-                    isExpandedDailyDetailsLayout.visibility = android.view.View.GONE
+                    isExpandedDailyDetailsLayout.visibility = View.GONE
                 }
 
             } else {
-                binding.isExpandedDailyDetailsLayout.visibility = android.view.View.VISIBLE
+                binding.isExpandedDailyDetailsLayout.visibility = View.VISIBLE
 
                 binding.apply {
-                    isNotExpandedDailyDetailsLayout.visibility = android.view.View.GONE
+                    isNotExpandedDailyDetailsLayout.visibility = View.GONE
                     expandedDailyForecastTime.text = dayName
                     expandedDailyForecastStatusIcon.setImageResource(iconRes)
                     expandedDailyForecastStatusWeather.text = status
@@ -104,7 +106,7 @@ class DailyForecastRvAdapter(
     }
 
     fun getDayName(context: Context, timestamp: Long, position: Int): String {
-        val sdf = DateFormat.getDateInstance(DateFormat.FULL, java.util.Locale.ENGLISH)
+        val sdf = DateFormat.getDateInstance(DateFormat.FULL, Locale.ENGLISH)
         val date = Date(timestamp * 1000)
         return when {
             position == 0 -> context.getString(R.string.today)

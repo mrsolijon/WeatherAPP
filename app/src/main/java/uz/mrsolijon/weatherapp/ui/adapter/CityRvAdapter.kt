@@ -1,4 +1,4 @@
-package uz.mrsolijon.weatherapp.adapter
+package uz.mrsolijon.weatherapp.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import uz.mrsolijon.weatherapp.R
-import uz.mrsolijon.weatherapp.model.CityResponse
+import uz.mrsolijon.weatherapp.data.remote.model.CityResponse
 
 class CityRvAdapter(
     private val cityList: List<CityResponse>,

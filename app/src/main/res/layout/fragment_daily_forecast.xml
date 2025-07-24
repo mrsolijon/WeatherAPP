@@ -6,7 +6,7 @@
     android:background="@drawable/backgroundn"
     android:orientation="vertical"
     android:paddingTop="14dp"
-    tools:context=".fragments.DailyForecastFragment">
+    tools:context=".ui.fragment.DailyForecastFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

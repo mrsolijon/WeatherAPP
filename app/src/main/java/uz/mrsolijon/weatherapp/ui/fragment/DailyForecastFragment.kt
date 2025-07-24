@@ -1,4 +1,4 @@
-package uz.mrsolijon.weatherapp.fragments
+package uz.mrsolijon.weatherapp.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import uz.mrsolijon.weatherapp.R
-import uz.mrsolijon.weatherapp.adapter.DailyForecastRvAdapter
+import uz.mrsolijon.weatherapp.ui.adapter.DailyForecastRvAdapter
 import uz.mrsolijon.weatherapp.databinding.FragmentDailyForecastBinding
-import uz.mrsolijon.weatherapp.model.WeatherViewModelFactory
-import uz.mrsolijon.weatherapp.viewmodels.WeatherViewModel
+import uz.mrsolijon.weatherapp.data.remote.model.WeatherViewModelFactory
+import uz.mrsolijon.weatherapp.viewmodel.WeatherViewModel
 
 class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
 

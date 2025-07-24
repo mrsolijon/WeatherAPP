@@ -1,10 +1,10 @@
-package uz.mrsolijon.weatherapp.model
+package uz.mrsolijon.weatherapp.data.remote.model
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import uz.mrsolijon.weatherapp.model.mapper.WeatherDataMapper
-import uz.mrsolijon.weatherapp.viewmodels.WeatherViewModel
+import uz.mrsolijon.weatherapp.data.remote.model.mapper.WeatherDataMapper
+import uz.mrsolijon.weatherapp.viewmodel.WeatherViewModel
 
 class WeatherViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
