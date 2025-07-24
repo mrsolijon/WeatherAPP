@@ -24,8 +24,8 @@ import uz.mrsolijon.weatherapp.data.remote.model.WeatherData
 import uz.mrsolijon.weatherapp.data.remote.model.WeatherViewModelFactory
 import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatus
 import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatusIcon
-import uz.mrsolijon.weatherapp.viewmodel.LocationViewModel
-import uz.mrsolijon.weatherapp.viewmodel.WeatherViewModel
+import uz.mrsolijon.weatherapp.ui.viewmodel.LocationViewModel
+import uz.mrsolijon.weatherapp.ui.viewmodel.WeatherViewModel
 import kotlin.getValue
 
 class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {

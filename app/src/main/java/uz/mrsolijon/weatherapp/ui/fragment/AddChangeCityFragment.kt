@@ -12,8 +12,8 @@ import uz.mrsolijon.weatherapp.ui.adapter.CityRvAdapter
 import uz.mrsolijon.weatherapp.databinding.FragmentAddChangeCityBinding
 import uz.mrsolijon.weatherapp.data.remote.model.CityResponse
 import uz.mrsolijon.weatherapp.data.remote.model.WeatherViewModelFactory
-import uz.mrsolijon.weatherapp.viewmodel.LocationViewModel
-import uz.mrsolijon.weatherapp.viewmodel.WeatherViewModel
+import uz.mrsolijon.weatherapp.ui.viewmodel.LocationViewModel
+import uz.mrsolijon.weatherapp.ui.viewmodel.WeatherViewModel
 import java.util.Locale
 
 class AddChangeCityFragment : Fragment(R.layout.fragment_add_change_city) {

@@ -1,4 +1,4 @@
-package uz.mrsolijon.weatherapp.viewmodel
+package uz.mrsolijon.weatherapp.ui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

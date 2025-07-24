@@ -15,7 +15,7 @@ import uz.mrsolijon.weatherapp.R
 import uz.mrsolijon.weatherapp.ui.adapter.DailyForecastRvAdapter
 import uz.mrsolijon.weatherapp.databinding.FragmentDailyForecastBinding
 import uz.mrsolijon.weatherapp.data.remote.model.WeatherViewModelFactory
-import uz.mrsolijon.weatherapp.viewmodel.WeatherViewModel
+import uz.mrsolijon.weatherapp.ui.viewmodel.WeatherViewModel
 
 class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
 

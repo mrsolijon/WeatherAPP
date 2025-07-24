@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import uz.mrsolijon.weatherapp.data.remote.model.mapper.WeatherDataMapper
-import uz.mrsolijon.weatherapp.viewmodel.WeatherViewModel
+import uz.mrsolijon.weatherapp.ui.viewmodel.WeatherViewModel
 
 class WeatherViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
