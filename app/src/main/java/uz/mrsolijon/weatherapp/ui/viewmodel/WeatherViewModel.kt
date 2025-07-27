@@ -11,15 +11,15 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import uz.mrsolijon.weatherapp.BuildConfig
-import uz.mrsolijon.weatherapp.data.remote.api.ApiClient
 import uz.mrsolijon.weatherapp.data.remote.model.DailyForecastData
 import uz.mrsolijon.weatherapp.data.remote.model.WeatherData
-import uz.mrsolijon.weatherapp.data.remote.model.mapper.WeatherDataMapper
+import uz.mrsolijon.weatherapp.repository.WeatherRepository
 
-class WeatherViewModel(private val weatherDataMapper: WeatherDataMapper) : ViewModel() {
+class WeatherViewModel(
+    private val weatherRepository: WeatherRepository
+) : ViewModel() {
 
-    val apiKey = BuildConfig.WEATHER_API_KEY
-    private val weatherApiService = ApiClient.weatherApiService
+    private val apiKey = BuildConfig.WEATHER_API_KEY
 
     private val _uiWeatherData = MutableStateFlow(WeatherData())
     val uiWeatherData: StateFlow<WeatherData?> get() = _uiWeatherData.asStateFlow()
@@ -39,15 +39,9 @@ class WeatherViewModel(private val weatherDataMapper: WeatherDataMapper) : ViewM
                 emit(Unit)
                 _isLoading.value = true
 
-                val response = weatherApiService.getWeather(latitude, longitude, apiKey)
-                val mappedData = weatherDataMapper.mapResponseToUiData(response)
-
-                _uiWeatherData.value = mappedData.copy(
-                    cityName = cityName ?: "Noma'lum"
-                )
-                _dailyForecastData.value = response.daily
-                Log.d("dailyForecastData", "loadWeatherData: ${dailyForecastData.value}")
-
+                val weatherData = weatherRepository.getWeather(latitude, longitude, apiKey, cityName)
+                _uiWeatherData.value = weatherData
+                _dailyForecastData.value = weatherData.daily
             }
                 .catch { e ->
                     _errorMessage.value = e.message
@@ -56,7 +50,6 @@ class WeatherViewModel(private val weatherDataMapper: WeatherDataMapper) : ViewM
                     _isLoading.value = false
                 }
                 .collect {}
-
         }
     }
 }

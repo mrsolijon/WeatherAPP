@@ -59,7 +59,7 @@ class DailyForecastRvAdapter(
                 binding.apply {
                     forecastDay.text = dayName
                     dayWeatherIcon.setImageResource(iconRes)
-                    dayWeatherTemp.text = "${item.temp.day.toInt()}°"
+                    dayWeatherTemp.text = "${item.temp.max.toInt()}°"
                     dayWeatherStatus.text = status
                     isExpandedDailyDetailsLayout.visibility = View.GONE
                 }
