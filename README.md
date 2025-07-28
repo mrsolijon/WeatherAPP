@@ -37,4 +37,5 @@
 2. Android studioda oching
 3. local.properties fayliga quyidagicha o‘zgartirish kiriting (API kalit o‘zingizniki bo‘lishi kerak):
    OPENWEATHERMAP_API_KEY=your_api_key_here
+   
 4.Telefoningizda yoki emulatorda ishga tushiring.
