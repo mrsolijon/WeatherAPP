@@ -6,12 +6,14 @@
 
 ## 📱 Asosiy imkoniyatlar
 
-- 🔍 Shahar bo‘yicha ob-havo qidiruvi
-- 📍 Hozirgi joylashuvdan foydalanish
-- 🌡️ Harorat, bosim, namlik, shamol tezligi
-- ☀️ Ob-havo ikonkalari va yangilanish funksiyasi
+- 🔍 Shahar nomi bo‘yicha ob-havo qidiruvi
+- 📍 Foydalanuvchining joriy joylashuvi asosida ob-havo
+- 🌡️ Harorat, bosim, namlik, shamol tezligi kabi real vaqtdagi ma’lumotlar
+- 🕐 **Soatlik prognoz** (keyingi 24 soat)
+- 📅 **Haftalik prognoz** (7 kunlik)
+- ☀️ Ob-havo ikonkalari va animatsiyalar
+- 🔄 Yangilanish tugmasi orqali ma’lumotlarni qayta olish
 - 🧭 Android permission (joylashuv uchun)
-
 ---
 
 ## 🛠 Texnologiyalar va kutubxonalar
