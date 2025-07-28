@@ -1,8 +1,8 @@
 package uz.mrsolijon.weatherapp.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,8 +14,10 @@ import uz.mrsolijon.weatherapp.BuildConfig
 import uz.mrsolijon.weatherapp.data.remote.model.DailyForecastData
 import uz.mrsolijon.weatherapp.data.remote.model.WeatherData
 import uz.mrsolijon.weatherapp.repository.WeatherRepository
+import javax.inject.Inject
 
-class WeatherViewModel(
+@HiltViewModel
+class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository
 ) : ViewModel() {
 

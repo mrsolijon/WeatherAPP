@@ -48,5 +48,11 @@
     <string name="morn">Tong</string>
     <string name="day">Kun</string>
     <string name="eve">Kech</string>
+    <string name="refresh_location">Joylashuvni yangilash</string>
+    <string name="location_permission_not_granted">Joylashuv ruxsati berilmadi. Ilova ayrim funksiyalarni bajara olmaydi.</string>
+    <string name="information_is_being_updated">Ma\'lumotlar yangilanmoqda</string>
+    <string name="location_information_is_required">Joylashuv ma\'lumotlari ob-havoni ko\'rsatish uchun zarur.</string>
+    <string name="error">Xatolik</string>
+    <string name="daily_information_is_not_available">Kunlik ob-havo ma\'lumotlari mavjud emas.</string>
 
 </resources>

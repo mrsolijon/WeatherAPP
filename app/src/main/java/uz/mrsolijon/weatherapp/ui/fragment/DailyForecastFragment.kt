@@ -5,39 +5,33 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import uz.mrsolijon.weatherapp.R
 import uz.mrsolijon.weatherapp.ui.adapter.DailyForecastRvAdapter
 import uz.mrsolijon.weatherapp.databinding.FragmentDailyForecastBinding
-import uz.mrsolijon.weatherapp.data.remote.model.WeatherViewModelFactory
 import uz.mrsolijon.weatherapp.ui.viewmodel.WeatherViewModel
+import androidx.fragment.app.activityViewModels
 
+@AndroidEntryPoint
 class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
 
     private var _binding: FragmentDailyForecastBinding? = null
     private val binding get() = _binding!!
-    private lateinit var weatherViewModel: WeatherViewModel
+    private val weatherViewModel: WeatherViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentDailyForecastBinding.bind(view)
 
-        val factory = WeatherViewModelFactory(requireActivity().application)
-        weatherViewModel =
-            ViewModelProvider(requireActivity(), factory)[WeatherViewModel::class.java]
-
-
         setupListeners()
         observeDailyForecastFlow()
-
     }
-
 
     private fun observeDailyForecastFlow() {
         lifecycleScope.launch {
@@ -53,22 +47,19 @@ class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Kunlik ob-havo ma'lumotlari mavjud emas.",
+                        getString(R.string.daily_information_is_not_available),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-
             }
-
         }
         lifecycleScope.launch {
             weatherViewModel.errorMessage.collectLatest { errorMessage ->
                 errorMessage?.let {
-                    Toast.makeText(requireContext(), "Xatolik: $it", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "${getString(R.string.error)}: $it", Toast.LENGTH_LONG).show()
                 }
             }
         }
-
     }
 
     fun setupListeners() {

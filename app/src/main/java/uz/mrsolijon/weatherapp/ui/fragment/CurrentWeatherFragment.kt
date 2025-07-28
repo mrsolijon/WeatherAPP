@@ -3,49 +3,48 @@ package uz.mrsolijon.weatherapp.ui.fragment
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import uz.mrsolijon.weatherapp.R
-import uz.mrsolijon.weatherapp.ui.adapter.HourlyForecastRvAdapter
-import uz.mrsolijon.weatherapp.databinding.FragmentCurrentWeatherBinding
 import uz.mrsolijon.weatherapp.data.remote.model.WeatherData
-import uz.mrsolijon.weatherapp.data.remote.model.WeatherViewModelFactory
-import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatus
-import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatusIcon
+import uz.mrsolijon.weatherapp.databinding.FragmentCurrentWeatherBinding
+import uz.mrsolijon.weatherapp.ui.adapter.HourlyForecastRvAdapter
 import uz.mrsolijon.weatherapp.ui.viewmodel.LocationViewModel
 import uz.mrsolijon.weatherapp.ui.viewmodel.WeatherViewModel
-import kotlin.getValue
+import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatus
+import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatusIcon
 
+@AndroidEntryPoint
 class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
 
     private var _binding: FragmentCurrentWeatherBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var weatherViewModel: WeatherViewModel
     private val locationViewModel: LocationViewModel by activityViewModels()
+    private val weatherViewModel: WeatherViewModel by activityViewModels()
 
-    private val locationPermissionLauncher = registerForActivityResult(
+    private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
+    ) { isGranted: Boolean ->
         if (isGranted) {
-            locationViewModel.fetchLocation(requireContext())
+            locationViewModel.fetchLocation()
         } else {
             Toast.makeText(
                 requireContext(),
-                R.string.location_access_denied.toString(),
-                Toast.LENGTH_SHORT
+                getString(R.string.location_permission_not_granted),
+                Toast.LENGTH_LONG
             ).show()
         }
     }
@@ -54,22 +53,21 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCurrentWeatherBinding.bind(view)
 
-        val factory = WeatherViewModelFactory(requireActivity().application)
-        weatherViewModel = ViewModelProvider(requireActivity(), factory)[WeatherViewModel::class.java]
-        if (locationViewModel.locationData.value.isManuallySelected == false || locationViewModel.locationData.value.latitude == null) {
-            checkLocationPermission()
-        } else {
-            observeViewModels()
-        }
         setupListeners()
         observeViewModels()
+        checkLocationPermission()
     }
 
     private fun setupListeners() {
         binding.refreshButton.setOnClickListener {
             locationViewModel.locationData.value.let { info ->
-                if (info.isManuallySelected && info.latitude != null && info.longitude != null) {
+                if (info.latitude != null && info.longitude != null) {
                     weatherViewModel.loadWeatherData(info.latitude, info.longitude, info.city)
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.information_is_being_updated),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     checkLocationPermission()
                 }
@@ -77,20 +75,18 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
         }
         binding.refreshLocation.setOnClickListener {
             locationViewModel.locationData.value.isManuallySelected = false
-            locationViewModel.fetchLocation(requireContext())
-        }
-        binding.currentCity.setOnClickListener {
-            findNavController().navigate(R.id.action_currentWeatherFragment_to_addChangeCityFragment)
+            locationViewModel.fetchLocation()
         }
         binding.addCityButton.setOnClickListener {
             findNavController().navigate(R.id.action_currentWeatherFragment_to_addChangeCityFragment)
         }
-        binding.settingsButton.setOnClickListener {
-            findNavController().navigate(R.id.action_currentWeatherFragment_to_settingsFragment)
-        }
         binding.btnDailyForecast.setOnClickListener {
             findNavController().navigate(R.id.action_currentWeatherFragment_to_dailyForecastFragment)
         }
+        binding.settingsButton.setOnClickListener {
+            findNavController().navigate(R.id.action_currentWeatherFragment_to_settingsFragment)
+        }
+
     }
 
     private fun checkLocationPermission() {
@@ -99,36 +95,37 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED -> {
-                locationViewModel.fetchLocation(requireContext())
+                locationViewModel.fetchLocation()
             }
 
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
                 Toast.makeText(
                     requireContext(),
-                    context?.getString(R.string.must_location),
+                    getString(R.string.location_information_is_required),
                     Toast.LENGTH_LONG
                 ).show()
-                locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
 
             else -> {
-                locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
         }
     }
 
     private fun observeViewModels() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     locationViewModel.locationData.collectLatest { info ->
                         when {
                             info.isLoading -> {
-                                binding.currentCity.text = getString(R.string.loading)
+                                binding.currentCity.text =
+                                    getString(R.string.locating)
                             }
 
                             info.error != null -> {
-                                binding.currentCity.text = info.error
+                                binding.currentCity.text =
+                                    getString(R.string.location_not_found)
                             }
 
                             info.latitude != null && info.longitude != null -> {
@@ -148,11 +145,9 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
                         weather?.let { updateUI(it) }
                     }
                 }
-
             }
         }
     }
-
 
     private fun updateUI(weather: WeatherData) {
         val iconRes = getWeatherStatusIcon(weather.icon)
@@ -169,13 +164,10 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             hourlyForecastRv.adapter = hourlyAdapter
         }
-
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

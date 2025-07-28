@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
-
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "uz.mrsolijon.weatherapp"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -69,9 +69,12 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.room.ktx)
 
+    ksp(libs.hilt.android.compiler)
+
     implementation(libs.lingver)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.hilt.android)
 }

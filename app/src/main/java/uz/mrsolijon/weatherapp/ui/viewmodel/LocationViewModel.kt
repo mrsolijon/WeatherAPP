@@ -12,23 +12,28 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import uz.mrsolijon.weatherapp.R
 import uz.mrsolijon.weatherapp.data.remote.model.LocationInfo
 import java.util.Locale
+import javax.inject.Inject
 
 @Suppress("DEPRECATION")
-class LocationViewModel : ViewModel() {
+@HiltViewModel
+class LocationViewModel @Inject constructor(
+    @ApplicationContext private val context: Context
+) : ViewModel() {
 
     private val _locationData = MutableStateFlow(LocationInfo(isLoading = false))
     val locationData: StateFlow<LocationInfo> get() = _locationData
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-
     @SuppressLint("MissingPermission")
-    fun fetchLocation(context: Context) {
+    fun fetchLocation() {
 
         if (_locationData.value.isManuallySelected && _locationData.value.latitude != null && _locationData.value.longitude != null) {
             return
@@ -40,20 +45,18 @@ class LocationViewModel : ViewModel() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
-        val locationRequest = LocationRequest.Builder(
-            Priority.PRIORITY_HIGH_ACCURACY, 3000
-        ).setMaxUpdates(1).build()
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000)
+            .build()
 
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.lastLocation?.let { location ->
-                    val city = getCityName(context, location.latitude, location.longitude)
+                    val cityName = getCityName(context, location.latitude, location.longitude)
                     _locationData.value = LocationInfo(
                         latitude = location.latitude,
                         longitude = location.longitude,
-                        city = city,
-                        isLoading = false,
-                        isManuallySelected = false
+                        city = cityName,
+                        isLoading = false
                     )
                 } ?: run {
                     _locationData.value = LocationInfo(
@@ -88,7 +91,6 @@ class LocationViewModel : ViewModel() {
         } catch (e: Exception) {
             context.getString(R.string.not_found)
         }
-
     }
 
     fun updateSelectedCity(city: String, lat: Double, lon: Double) {

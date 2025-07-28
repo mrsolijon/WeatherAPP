@@ -48,4 +48,10 @@
     <string name="morn">Тонг</string>
     <string name="day">Кун</string>
     <string name="eve">Кеч</string>
+    <string name="refresh_location">"Жойлашувни янгилаш "</string>
+    <string name="location_permission_not_granted">"Жойлашув рухсати берилмади. Илова айрим функсияларни бажара олмайди "</string>
+    <string name="information_is_being_updated">"Маълумотлар янгиланмоқда "</string>
+    <string name="location_information_is_required">Жойлашув маълумотлари об-ҳавони кўрсатиш учун зарур</string>
+    <string name="error">Хатолик</string>
+    <string name="daily_information_is_not_available">"Кунлик об-ҳаво маълумотлари мавжуд емас. "</string>
 </resources>

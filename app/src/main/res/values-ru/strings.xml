@@ -49,5 +49,11 @@
     <string name="morn">Утро</string>
     <string name="day">День</string>
     <string name="eve">Вечер</string>
+    <string name="refresh_location">Обновить местоположение</string>
+    <string name="location_permission_not_granted">Разрешение на определение местоположения не предоставлено. Приложение не может выполнять некоторые функции.</string>
+    <string name="information_is_being_updated">Информация обновляется.</string>
+    <string name="location_information_is_required">Для отображения погоды необходима информация о местоположении.</string>
+    <string name="error">Ошибка</string>
+    <string name="daily_information_is_not_available">Ежедневная информация о погоде недоступна.</string>
 
 </resources>

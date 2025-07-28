@@ -1,9 +1,9 @@
 package uz.mrsolijon.weatherapp.data.remote.model
 
 data class WeatherData(
-    val cityName: String = "Noma'lum",
+    val cityName: String = "",
     val temperature: String = "--°C",
-    val weatherStatus: String = "Noma'lum",
+    val weatherStatus: String = "",
     val humidity: String = "--%",
     val windSpeed: String = "-- m/s",
     val maxTemp: String = "--°C",
