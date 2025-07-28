@@ -55,5 +55,6 @@
     <string name="location_information_is_required">Для отображения погоды необходима информация о местоположении.</string>
     <string name="error">Ошибка</string>
     <string name="daily_information_is_not_available">Ежедневная информация о погоде недоступна.</string>
+    <string name="city_not_found">Город не найден</string>
 
 </resources>

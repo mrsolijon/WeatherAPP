@@ -31,6 +31,12 @@ object AppModule {
         weatherApiService: WeatherApiService,
         application: Application
     ): WeatherRepository {
-        return WeatherRepository(database, networkHelper, weatherDataMapper, weatherApiService,application)
+        return WeatherRepository(
+            database,
+            networkHelper,
+            weatherDataMapper,
+            weatherApiService,
+            application
+        )
     }
 }

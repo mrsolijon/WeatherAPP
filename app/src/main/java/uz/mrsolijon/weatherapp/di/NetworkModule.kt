@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import uz.mrsolijon.weatherapp.data.remote.api.GeocodingApiService
 import uz.mrsolijon.weatherapp.data.remote.api.WeatherApiService
 import uz.mrsolijon.weatherapp.util.NetworkHelper
 import javax.inject.Singleton
@@ -38,4 +39,11 @@ object NetworkModule {
     fun provideNetworkHelper(@ApplicationContext context: Context): NetworkHelper {
         return NetworkHelper(context)
     }
+
+    @Singleton
+    @Provides
+    fun provideGeocodingApiService(retrofit: Retrofit): GeocodingApiService {
+        return retrofit.create(GeocodingApiService::class.java)
+    }
+
 }

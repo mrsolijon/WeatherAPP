@@ -54,4 +54,5 @@
     <string name="location_information_is_required">Жойлашув маълумотлари об-ҳавони кўрсатиш учун зарур</string>
     <string name="error">Хатолик</string>
     <string name="daily_information_is_not_available">"Кунлик об-ҳаво маълумотлари мавжуд емас. "</string>
+    <string name="city_not_found">Шахар топилмади</string>
 </resources>

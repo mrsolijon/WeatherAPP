@@ -1,15 +1,13 @@
 package uz.mrsolijon.weatherapp.repository
 
 import android.app.Application
-import android.os.Build
-import androidx.annotation.RequiresApi
+import uz.mrsolijon.weatherapp.R
 import uz.mrsolijon.weatherapp.data.local.WeatherAppDatabase
 import uz.mrsolijon.weatherapp.data.local.entity.WeatherEntity
 import uz.mrsolijon.weatherapp.data.remote.api.WeatherApiService
 import uz.mrsolijon.weatherapp.data.remote.model.WeatherData
 import uz.mrsolijon.weatherapp.data.remote.model.mapper.WeatherDataMapper
 import uz.mrsolijon.weatherapp.util.NetworkHelper
-import uz.mrsolijon.weatherapp.R
 import java.time.Instant
 import javax.inject.Inject
 
@@ -22,7 +20,13 @@ class WeatherRepository @Inject constructor(
 ) {
     private val weatherDao = database.weatherDao()
 
-    suspend fun getWeather(lat: Double, lon: Double, apiKey: String, cityName: String?): WeatherData {
+    suspend fun getWeather(
+        lat: Double,
+        lon: Double,
+        apiKey: String,
+        cityName: String?
+    ): WeatherData {
+
         return if (networkHelper.isNetworkConnected()) {
 
             // API’dan ma'lumot olish
@@ -37,7 +41,8 @@ class WeatherRepository @Inject constructor(
                 cityName = cityName ?: application.getString(R.string.unknown), // O'zgartirildi
 
                 temperature = response.current.temp,
-                weatherStatus = response.current.weather.firstOrNull()?.description ?: application.getString(R.string.unknown),
+                weatherStatus = response.current.weather.firstOrNull()?.description
+                    ?: application.getString(R.string.unknown),
                 humidity = response.current.humidity,
                 windSpeed = response.current.wind_speed,
                 maxTemp = response.daily.firstOrNull()?.temp?.max ?: 0f,
@@ -52,6 +57,7 @@ class WeatherRepository @Inject constructor(
             uiData.copy(cityName = cityName ?: application.getString(R.string.unknown))
 
         } else {
+
             // Internet yo‘q, local database’dan ma'lumot olish
             val cachedWeather = weatherDao.getWeatherByLocation(lat, lon)
 
@@ -74,6 +80,7 @@ class WeatherRepository @Inject constructor(
                     daily = it.daily,
                     icon = it.icon
                 )
+
                 weatherData
             } ?: run {
                 WeatherData()

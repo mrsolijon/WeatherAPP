@@ -1,10 +1,10 @@
 package uz.mrsolijon.weatherapp.ui.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.yariksoffice.lingver.Lingver
 import uz.mrsolijon.weatherapp.R

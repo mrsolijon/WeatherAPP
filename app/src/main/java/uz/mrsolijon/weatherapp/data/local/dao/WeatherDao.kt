@@ -13,6 +13,7 @@ interface WeatherDao {
         deleteWeatherByLocation(lat, lon)
         insertWeather(weather)
     }
+
     @Insert
     suspend fun insertWeather(weather: WeatherEntity)
 

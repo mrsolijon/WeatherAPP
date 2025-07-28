@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.mrsolijon.weatherapp.R
-import uz.mrsolijon.weatherapp.databinding.ItemDailyBinding
 import uz.mrsolijon.weatherapp.data.remote.model.DailyForecastData
+import uz.mrsolijon.weatherapp.databinding.ItemDailyBinding
 import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatus
 import uz.mrsolijon.weatherapp.util.WeatherStatusUtils.getWeatherStatusIcon
 import java.text.DateFormat
@@ -18,15 +18,15 @@ import java.util.Locale
 class DailyForecastRvAdapter(
     private val context: Context, private val dailyList: List<DailyForecastData>
 ) : RecyclerView.Adapter<DailyForecastRvAdapter.ViewHolder>() {
-    private var firsrInit = true
+    private var firstInit = true
 
     inner class ViewHolder(private val binding: ItemDailyBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            if (dailyList.isNotEmpty() && firsrInit) {
+            if (dailyList.isNotEmpty() && firstInit) {
                 dailyList[0].isExpanded = true
-                firsrInit = false
+                firstInit = false
             }
 
             binding.root.setOnClickListener {

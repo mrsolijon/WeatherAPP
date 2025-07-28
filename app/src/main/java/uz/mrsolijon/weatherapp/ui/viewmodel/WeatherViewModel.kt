@@ -37,13 +37,15 @@ class WeatherViewModel @Inject constructor(
 
     fun loadWeatherData(latitude: Double, longitude: Double, cityName: String? = null) {
         viewModelScope.launch {
+
             flow {
                 emit(Unit)
                 _isLoading.value = true
-
-                val weatherData = weatherRepository.getWeather(latitude, longitude, apiKey, cityName)
+                val weatherData =
+                    weatherRepository.getWeather(latitude, longitude, apiKey, cityName)
                 _uiWeatherData.value = weatherData
                 _dailyForecastData.value = weatherData.daily
+
             }
                 .catch { e ->
                     _errorMessage.value = e.message

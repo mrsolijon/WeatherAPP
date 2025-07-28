@@ -3,6 +3,7 @@ package uz.mrsolijon.weatherapp.ui.fragment
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -117,6 +118,10 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     locationViewModel.locationData.collectLatest { info ->
+                        Log.d(
+                            "CurrentWeatherFragment",
+                            "LocationInfo yangilandi: $info"
+                        ) // Bu logni qo'shing
                         when {
                             info.isLoading -> {
                                 binding.currentCity.text =
@@ -128,7 +133,11 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
                                     getString(R.string.location_not_found)
                             }
 
-                            info.latitude != null && info.longitude != null -> {
+                            (info.latitude != null && info.longitude != null) -> {
+                                Log.d(
+                                    "CurrentWeatherFragment",
+                                    "loadWeatherData chaqirilmoqda: Lat=${info.latitude}, Lon=${info.longitude}, City=${info.city}"
+                                ) // Bu logni qo'shing
                                 binding.currentCity.text = info.city
                                 weatherViewModel.loadWeatherData(
                                     info.latitude,
@@ -155,6 +164,7 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
         val hourlyAdapter = HourlyForecastRvAdapter(weather.hourly.take(24))
 
         binding.apply {
+            currentCity.text = weather.cityName
             statusIcon.setImageResource(iconRes)
             currentTemp.text = weather.temperature
             currentHumidity.text = weather.humidity

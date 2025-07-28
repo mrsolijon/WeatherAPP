@@ -52,4 +52,5 @@
     <string name="location_information_is_required">Joylashuv ma\'lumotlari ob-havoni ko\'rsatish uchun zarur.</string>
     <string name="error">Xatolik</string>
     <string name="daily_information_is_not_available">Kunlik ob-havo ma\'lumotlari mavjud emas.</string>
+    <string name="city_not_found">Shahar topilmadi</string>
 </resources>

@@ -1,10 +1,13 @@
 package uz.mrsolijon.weatherapp.ui.viewmodel
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
 import android.location.Geocoder
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationAvailability
 import com.google.android.gms.location.LocationCallback
@@ -13,10 +16,13 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import uz.mrsolijon.weatherapp.BuildConfig
 import uz.mrsolijon.weatherapp.R
+import uz.mrsolijon.weatherapp.data.remote.api.GeocodingApiService
+import uz.mrsolijon.weatherapp.data.remote.model.CityResponse
 import uz.mrsolijon.weatherapp.data.remote.model.LocationInfo
 import java.util.Locale
 import javax.inject.Inject
@@ -24,13 +30,20 @@ import javax.inject.Inject
 @Suppress("DEPRECATION")
 @HiltViewModel
 class LocationViewModel @Inject constructor(
-    @ApplicationContext private val context: Context
+    private val application: Application,
+    private val geocodingApiService: GeocodingApiService
 ) : ViewModel() {
 
     private val _locationData = MutableStateFlow(LocationInfo(isLoading = false))
     val locationData: StateFlow<LocationInfo> get() = _locationData
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private val _searchResults = MutableStateFlow<List<CityResponse>>(emptyList())
+    val searchResults: StateFlow<List<CityResponse>> = _searchResults
+
+    private val apiKey = BuildConfig.WEATHER_API_KEY
+
 
     @SuppressLint("MissingPermission")
     fun fetchLocation() {
@@ -41,9 +54,14 @@ class LocationViewModel @Inject constructor(
 
         if (_locationData.value.isLoading) return
 
-        _locationData.value = LocationInfo(isLoading = true)
+        if (_locationData.value.latitude == null || _locationData.value.longitude == null) {
+            _locationData.value = LocationInfo(isLoading = true)
+        } else {
+            return
+        }
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+        fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(application.applicationContext)
 
         val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000)
             .build()
@@ -51,7 +69,11 @@ class LocationViewModel @Inject constructor(
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.lastLocation?.let { location ->
-                    val cityName = getCityName(context, location.latitude, location.longitude)
+                    val cityName = getCityName(
+                        application.applicationContext,
+                        location.latitude,
+                        location.longitude
+                    )
                     _locationData.value = LocationInfo(
                         latitude = location.latitude,
                         longitude = location.longitude,
@@ -61,7 +83,7 @@ class LocationViewModel @Inject constructor(
                 } ?: run {
                     _locationData.value = LocationInfo(
                         isLoading = false,
-                        error = context.getString(R.string.location_not_found)
+                        error = application.getString(R.string.location_not_found)
                     )
                 }
                 fusedLocationClient.removeLocationUpdates(this)
@@ -71,7 +93,7 @@ class LocationViewModel @Inject constructor(
                 if (!availability.isLocationAvailable) {
                     _locationData.value = LocationInfo(
                         isLoading = false,
-                        error = context.getString(R.string.location_not_found)
+                        error = application.getString(R.string.location_not_found)
                     )
                 }
             }
@@ -94,6 +116,7 @@ class LocationViewModel @Inject constructor(
     }
 
     fun updateSelectedCity(city: String, lat: Double, lon: Double) {
+        Log.d("LocationViewModel", "Updating selected city: $city")
         _locationData.value = LocationInfo(
             latitude = lat,
             longitude = lon,
@@ -101,5 +124,20 @@ class LocationViewModel @Inject constructor(
             isLoading = false,
             isManuallySelected = true
         )
+    }
+
+    fun searchCities(query: String) {
+        viewModelScope.launch {
+            if (query.isBlank()) {
+                _searchResults.value = emptyList()
+                return@launch
+            }
+            try {
+                val cities = geocodingApiService.getCitiesByName(query, limit = 5, apiKey = apiKey)
+                _searchResults.value = cities
+            } catch (e: Exception) {
+                _searchResults.value = emptyList()
+            }
+        }
     }
 }

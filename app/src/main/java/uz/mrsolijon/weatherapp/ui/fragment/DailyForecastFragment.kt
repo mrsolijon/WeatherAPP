@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,10 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import uz.mrsolijon.weatherapp.R
-import uz.mrsolijon.weatherapp.ui.adapter.DailyForecastRvAdapter
 import uz.mrsolijon.weatherapp.databinding.FragmentDailyForecastBinding
+import uz.mrsolijon.weatherapp.ui.adapter.DailyForecastRvAdapter
 import uz.mrsolijon.weatherapp.ui.viewmodel.WeatherViewModel
-import androidx.fragment.app.activityViewModels
 
 @AndroidEntryPoint
 class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
@@ -56,7 +56,11 @@ class DailyForecastFragment : Fragment(R.layout.fragment_daily_forecast) {
         lifecycleScope.launch {
             weatherViewModel.errorMessage.collectLatest { errorMessage ->
                 errorMessage?.let {
-                    Toast.makeText(requireContext(), "${getString(R.string.error)}: $it", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "${getString(R.string.error)}: $it",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
