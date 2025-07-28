@@ -25,7 +25,6 @@
 - **Retrofit + Gson** — API orqali ob-havo ma’lumotlarini olish
 - **OpenWeatherMap API**
 - **FusedLocationProviderClient** — joylashuvni aniqlash uchun
-- **Material Design**
 - **Room**
 - **Dagger Hilt**
 
