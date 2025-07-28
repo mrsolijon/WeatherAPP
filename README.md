@@ -1,25 +1,35 @@
-# 🌦️ WeatherAPP
+# 🌤️ WeatherAPP
 
-**WeatherAPP** — bu Android qurilmalari uchun ishlab chiqilgan Kotlin asosidagi ob-havo ilovasi. Ilova foydalanuvchining real joylashuviga yoki tanlangan shahariga qarab, OpenWeatherMap API orqali ob-havo ma'lumotlarini ko‘rsatadi.
+**WeatherAPP** — bu Android mobil qurilmalari uchun Kotlin tilida yozilgan ob-havo ilovasi bo‘lib, foydalanuvchining joylashuviga yoki tanlangan shahar nomiga qarab real vaqtdagi ob-havo ma'lumotlarini taqdim etadi va offline holda foydalanish uchunt xotirada saqlaydi.
 
-## 📲 Ilova imkoniyatlari
+---
 
-- 📍 Qurilmaning hozirgi joylashuvini aniqlab, ob-havo ma'lumotlarini ko‘rsatish
-- 🏙️ Tanlangan shaharlar bo‘yicha ob-havo ma’lumotlarini yuklab olish(Hozircha kichik local baza)
-- 🌡️ Harorat, bosim, namlik, shamol tezligi kabi ko‘rsatkichlarni ko‘rsatish
-- 🔄 JSON formatdagi ma’lumotlarni Retrofit orqali yuklash
+## 📱 Asosiy imkoniyatlar
 
-## 🧱 Texnologiyalar va kutubxonalar
+- 🔍 Shahar bo‘yicha ob-havo qidiruvi
+- 📍 Hozirgi joylashuvdan foydalanish
+- 🌡️ Harorat, bosim, namlik, shamol tezligi
+- ☀️ Ob-havo ikonkalari va yangilanish funksiyasi
+- 🧭 Android permission (joylashuv uchun)
+
+---
+
+## 🛠 Texnologiyalar va kutubxonalar
 
 - **Kotlin**
-- **MVVM** arxitekturasi
-- **ViewModel + Flow**
-- **Retrofit2 + Gson**
-- **ViewBinding**
+- **MVVM arxitekturasi**
+- **ViewModel**, **Flow**
+- **View Binding**
+- **Retrofit + Gson** — API orqali ob-havo ma’lumotlarini olish
 - **OpenWeatherMap API**
-- **Material Components**
+- **FusedLocationProviderClient** — joylashuvni aniqlash uchun
+- **Material Design**
+- **Room**
+- **Dagger Hilt**
 
-## 🛠 O'rnatish
+---
+
+## 📦 O‘rnatish (Development uchun)
 
 1. Repository’ni klon qiling:
    ```bash
