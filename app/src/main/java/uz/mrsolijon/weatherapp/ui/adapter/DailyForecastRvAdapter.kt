@@ -106,13 +106,13 @@ class DailyForecastRvAdapter(
     }
 
     fun getDayName(context: Context, timestamp: Long, position: Int): String {
-        val sdf = DateFormat.getDateInstance(DateFormat.FULL, Locale.ENGLISH)
+        val dayName = DateFormat.getDateInstance(DateFormat.FULL, Locale.ENGLISH)
         val date = Date(timestamp * 1000)
-        return when {
-            position == 0 -> context.getString(R.string.today)
-            position == 1 -> context.getString(R.string.tomorrow)
+        return when (position) {
+            0 -> context.getString(R.string.today)
+            1 -> context.getString(R.string.tomorrow)
             else -> {
-                when (sdf.format(date).substringBefore(",")) {
+                when (dayName.format(date).substringBefore(",")) {
                     "Monday" -> context.getString(R.string.monday)
                     "Tuesday" -> context.getString(R.string.tuesday)
                     "Wednesday" -> context.getString(R.string.wednesday)

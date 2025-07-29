@@ -38,7 +38,7 @@ class WeatherRepository @Inject constructor(
                 lat = lat,
                 lon = lon,
                 timezone = response.timezone,
-                cityName = cityName ?: application.getString(R.string.unknown), // O'zgartirildi
+                cityName = cityName ?: application.getString(R.string.unknown),
 
                 temperature = response.current.temp,
                 weatherStatus = response.current.weather.firstOrNull()?.description
