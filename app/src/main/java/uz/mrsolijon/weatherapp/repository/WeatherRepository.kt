@@ -1,10 +1,14 @@
 package uz.mrsolijon.weatherapp.repository
 
 import android.app.Application
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import uz.mrsolijon.weatherapp.R
 import uz.mrsolijon.weatherapp.data.local.WeatherAppDatabase
 import uz.mrsolijon.weatherapp.data.local.entity.WeatherEntity
+import uz.mrsolijon.weatherapp.data.local.prefs.LocationSharedPreferencesManager
 import uz.mrsolijon.weatherapp.data.remote.api.WeatherApiService
+import uz.mrsolijon.weatherapp.data.remote.model.LocationInfo
 import uz.mrsolijon.weatherapp.data.remote.model.WeatherData
 import uz.mrsolijon.weatherapp.data.remote.model.mapper.WeatherDataMapper
 import uz.mrsolijon.weatherapp.util.NetworkHelper
@@ -16,7 +20,8 @@ class WeatherRepository @Inject constructor(
     private val networkHelper: NetworkHelper,
     private val weatherDataMapper: WeatherDataMapper,
     private val weatherApiService: WeatherApiService,
-    private val application: Application
+    private val application: Application,
+    private val locationSharedPreferencesManager: LocationSharedPreferencesManager
 ) {
     private val weatherDao = database.weatherDao()
 
@@ -24,7 +29,8 @@ class WeatherRepository @Inject constructor(
         lat: Double,
         lon: Double,
         apiKey: String,
-        cityName: String?
+        cityName: String?,
+        isManuallySelected: Boolean
     ): WeatherData {
 
         return if (networkHelper.isNetworkConnected()) {
@@ -54,6 +60,16 @@ class WeatherRepository @Inject constructor(
             )
             weatherDao.deleteWeatherByLocation(lat, lon)
             weatherDao.insertWeather(weatherEntity)
+
+            val lastLocationInfo = LocationInfo(
+                latitude = lat,
+                longitude = lon,
+                city = cityName ?: application.getString(R.string.unknown),
+                isManuallySelected = isManuallySelected
+            )
+            withContext(Dispatchers.IO) {
+                locationSharedPreferencesManager.saveLastLocation(lastLocationInfo)
+            }
             uiData.copy(cityName = cityName ?: application.getString(R.string.unknown))
 
         } else {
@@ -86,5 +102,9 @@ class WeatherRepository @Inject constructor(
                 WeatherData()
             }
         }
+    }
+
+    fun getLastSavedLocation(): LocationInfo {
+        return locationSharedPreferencesManager.getLastLocation()
     }
 }

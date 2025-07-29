@@ -54,8 +54,9 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
         _binding = FragmentCurrentWeatherBinding.bind(view)
 
         setupListeners()
-        observeViewModels()
         checkLocationPermission()
+
+        observeViewModels()
     }
 
     private fun setupListeners() {
@@ -74,6 +75,8 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
             }
         }
         binding.refreshLocation.setOnClickListener {
+            Toast.makeText(requireContext(), "Joriy lokatsiya yangilanmoqda", Toast.LENGTH_SHORT)
+                .show()
             locationViewModel.locationData.value.isManuallySelected = false
             locationViewModel.fetchLocation()
         }
@@ -92,8 +95,7 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
     private fun checkLocationPermission() {
         when {
             ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
+                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED -> {
                 locationViewModel.fetchLocation()
             }
@@ -120,22 +122,18 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
 
                         when {
                             info.isLoading -> {
-                                binding.currentCity.text =
-                                    getString(R.string.locating)
+                                binding.currentCity.text = getString(R.string.locating)
                             }
 
                             info.error != null -> {
-                                binding.currentCity.text =
-                                    getString(R.string.location_not_found)
+                                binding.currentCity.text = getString(R.string.location_not_found)
                             }
 
                             (info.latitude != null && info.longitude != null) -> {
 
                                 binding.currentCity.text = info.city
                                 weatherViewModel.loadWeatherData(
-                                    info.latitude,
-                                    info.longitude,
-                                    info.city
+                                    info.latitude, info.longitude, info.city
                                 )
                             }
                         }

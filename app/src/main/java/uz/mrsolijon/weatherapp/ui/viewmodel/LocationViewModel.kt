@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import uz.mrsolijon.weatherapp.BuildConfig
 import uz.mrsolijon.weatherapp.R
+import uz.mrsolijon.weatherapp.data.local.prefs.LocationSharedPreferencesManager
 import uz.mrsolijon.weatherapp.data.remote.api.GeocodingApiService
 import uz.mrsolijon.weatherapp.data.remote.model.CityResponse
 import uz.mrsolijon.weatherapp.data.remote.model.LocationInfo
@@ -31,19 +32,28 @@ import javax.inject.Inject
 @HiltViewModel
 class LocationViewModel @Inject constructor(
     private val application: Application,
-    private val geocodingApiService: GeocodingApiService
+    private val geocodingApiService: GeocodingApiService,
+    private val locationSharedPreferencesManager: LocationSharedPreferencesManager
 ) : ViewModel() {
+
+    private val apiKey = BuildConfig.WEATHER_API_KEY
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
 
     private val _locationData = MutableStateFlow(LocationInfo(isLoading = false))
     val locationData: StateFlow<LocationInfo> get() = _locationData
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-
     private val _searchResults = MutableStateFlow<List<CityResponse>>(emptyList())
     val searchResults: StateFlow<List<CityResponse>> = _searchResults
 
-    private val apiKey = BuildConfig.WEATHER_API_KEY
-
+    init {
+        fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(application.applicationContext)
+        val savedLocation = locationSharedPreferencesManager.getLastLocation()
+        if (savedLocation.latitude != null && savedLocation.longitude != null) {
+            _locationData.value = savedLocation.copy(isLoading = false, isManuallySelected = true)
+        }
+    }
 
     @SuppressLint("MissingPermission")
     fun fetchLocation() {
@@ -56,7 +66,7 @@ class LocationViewModel @Inject constructor(
 
         if (_locationData.value.latitude == null || _locationData.value.longitude == null) {
             _locationData.value = LocationInfo(isLoading = true)
-        } else {
+        } else if (_locationData.value.isManuallySelected) {
             return
         }
 
@@ -66,7 +76,7 @@ class LocationViewModel @Inject constructor(
         val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000)
             .build()
 
-        val locationCallback = object : LocationCallback() {
+        locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.lastLocation?.let { location ->
                     val cityName = getCityName(
@@ -74,17 +84,19 @@ class LocationViewModel @Inject constructor(
                         location.latitude,
                         location.longitude
                     )
-                    _locationData.value = LocationInfo(
+                    val newLocationInfo = LocationInfo(
                         latitude = location.latitude,
                         longitude = location.longitude,
                         city = cityName,
                         isLoading = false
                     )
-                } ?: run {
-                    _locationData.value = LocationInfo(
-                        isLoading = false,
-                        error = application.getString(R.string.location_not_found)
-                    )
+
+                    _locationData.value = newLocationInfo
+                    viewModelScope.launch {
+                        locationSharedPreferencesManager.clearLastLocation()
+                        locationSharedPreferencesManager.saveLastLocation(newLocationInfo)
+                    }
+
                 }
                 fusedLocationClient.removeLocationUpdates(this)
             }
@@ -103,6 +115,14 @@ class LocationViewModel @Inject constructor(
             locationCallback,
             Looper.getMainLooper()
         )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        if (::fusedLocationClient.isInitialized && ::locationCallback.isInitialized) {
+            fusedLocationClient.removeLocationUpdates(locationCallback)
+            Log.d("LocationViewModel", "Location updates removed on ViewModel cleared.")
+        }
     }
 
     private fun getCityName(context: Context, lat: Double, lon: Double): String {
@@ -140,4 +160,5 @@ class LocationViewModel @Inject constructor(
             }
         }
     }
+
 }

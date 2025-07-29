@@ -72,7 +72,7 @@ class DailyForecastRvAdapter(
                     expandedDailyForecastTime.text = dayName
                     expandedDailyForecastStatusIcon.setImageResource(iconRes)
                     expandedDailyForecastStatusWeather.text = status
-                    expandedDailyForecastTemp.text = "${item.temp.day.toInt()}°"
+                    expandedDailyForecastTemp.text = "${item.temp.max.toInt()}°"
                     expandedDailyForecastSunriseTime.text =
                         DateFormat.getTimeInstance(DateFormat.SHORT).format(item.sunrise * 1000)
                     expandedDailyForecastSunsetTime.text =
@@ -125,8 +125,5 @@ class DailyForecastRvAdapter(
                 }
             }
         }
-
     }
-
-
 }

@@ -35,14 +35,25 @@ class WeatherViewModel @Inject constructor(
     private val _dailyForecastData = MutableStateFlow<List<DailyForecastData>>(emptyList())
     val dailyForecastData: StateFlow<List<DailyForecastData>> get() = _dailyForecastData.asStateFlow()
 
-    fun loadWeatherData(latitude: Double, longitude: Double, cityName: String? = null) {
+    fun loadWeatherData(
+        latitude: Double,
+        longitude: Double,
+        cityName: String? = null,
+        isManuallySelected: Boolean = false
+    ) {
         viewModelScope.launch {
 
             flow {
                 emit(Unit)
                 _isLoading.value = true
                 val weatherData =
-                    weatherRepository.getWeather(latitude, longitude, apiKey, cityName)
+                    weatherRepository.getWeather(
+                        latitude,
+                        longitude,
+                        apiKey,
+                        cityName,
+                        isManuallySelected
+                    )
                 _uiWeatherData.value = weatherData
                 _dailyForecastData.value = weatherData.daily
 
@@ -56,4 +67,5 @@ class WeatherViewModel @Inject constructor(
                 .collect {}
         }
     }
+
 }
