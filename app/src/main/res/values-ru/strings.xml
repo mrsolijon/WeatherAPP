@@ -56,5 +56,6 @@
     <string name="error">Ошибка</string>
     <string name="daily_information_is_not_available">Ежедневная информация о погоде недоступна.</string>
     <string name="city_not_found">Город не найден</string>
+    <string name="data_is_outdated_please_connect_to_the_internet">Информация устарела. Пожалуйста, подключитесь к интернету.</string>
 
 </resources>
