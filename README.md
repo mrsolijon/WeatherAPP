@@ -14,6 +14,7 @@
 - ☀️ Ob-havo ikonkalari va animatsiyalar
 - 🔄 Yangilanish tugmasi orqali ma’lumotlarni qayta olish
 - 🧭 Android permission (joylashuv uchun)
+- Oxirgi shaxarni yodda tutish
 ---
 
 ## 🛠 Texnologiyalar va kutubxonalar
@@ -21,6 +22,7 @@
 - **Kotlin**
 - **MVVM arxitekturasi**
 - **ViewModel**, **Flow**
+- **SharedPreferences**
 - **View Binding**
 - **Retrofit + Gson** — API orqali ob-havo ma’lumotlarini olish
 - **OpenWeatherMap API**
