@@ -15,7 +15,7 @@
 ---
 ## 🛠 Technologies & Libraries
 - **Kotlin**
-- **MVVM arxitekturasi**
+- **MVVM Architecture**
 - **ViewModel**, **Flow**
 - **SharedPreferences**
 - **View Binding**
