@@ -1,36 +1,36 @@
 
 # 🌤️ WeatherAPP
-**WeatherAPP** — bu Android mobil qurilmalari uchun Kotlin tilida yozilgan ob-havo ilovasi bo‘lib, foydalanuvchining joylashuviga yoki tanlangan shahar nomiga qarab real vaqtdagi ob-havo ma'lumotlarini taqdim etadi va offline holda foydalanish uchunt xotirada saqlaydi.
+**WeatherAPP** — is an Android mobile application written in Kotlin that provides real-time weather information based on the user's current location or a selected city name, and stores data for offline use.
 ---
-## 📱 Asosiy imkoniyatlar
-- 🔍 Shahar nomi bo‘yicha ob-havo qidiruvi
-- 📍 Foydalanuvchining joriy joylashuvi asosida ob-havo
-- 🌡️ Harorat, bosim, namlik, shamol tezligi kabi real vaqtdagi ma’lumotlar
-- 🕐 **Soatlik prognoz** (keyingi 24 soat)
-- 📅 **Haftalik prognoz** (7 kunlik)
-- ☀️ Ob-havo ikonkalari va animatsiyalar
-- 🔄 Yangilanish tugmasi orqali ma’lumotlarni qayta olish
-- 🧭 Android permission (joylashuv uchun)
-- Oxirgi shaxarni yodda tutish
+## 📱 Key Features
+- 🔍 Search weather by city name
+- 📍 Weather based on the user's current location
+- 🌡️ Real-time data including temperature, pressure, humidity, and wind speed
+- 🕐 **Hourly forecast** (next 24 hour)
+- 📅 **Weekly forecast** (7-days)
+- ☀️ Weather icons and animations
+- 🔄 Refresh button to fetch updated data
+- 🧭 Android permissions (for location access)
+- Remember the last searched city
 ---
-## 🛠 Texnologiyalar va kutubxonalar
+## 🛠 Technologies & Libraries
 - **Kotlin**
 - **MVVM arxitekturasi**
 - **ViewModel**, **Flow**
 - **SharedPreferences**
 - **View Binding**
-- **Retrofit + Gson** — API orqali ob-havo ma’lumotlarini olish
+- **Retrofit + Gson** — for fetching weather data via API
 - **OpenWeatherMap API**
-- **FusedLocationProviderClient** — joylashuvni aniqlash uchun
+- **FusedLocationProviderClient** — for location detection
 - **Room**
 - **Dagger Hilt**
 ---
-## 📦 O‘rnatish (Development uchun)
-1. Repository’ni klon qiling:
+## 📦 Installation (For Development)
+1. Clone the repository:
    ```bash
    git clone https://github.com/mrsolijon/WeatherAPP.git
-2. Android studioda oching
-3. local.properties fayliga quyidagicha o‘zgartirish kiriting (API kalit o‘zingizniki bo‘lishi kerak):
+2. Open the project in Android Studio
+3. Add the following line to your local.properties file (replace with your own API key):
    OPENWEATHERMAP_API_KEY=your_api_key_here
    
-4.Telefoningizda yoki emulatorda ishga tushiring.
+4.Run the app on your device or emulator.
